@@ -1,8 +1,14 @@
 ## SwipeCardView Control for Xamarin Forms
 
-Simple cross platform which brings Tinder-style swipe card view into Xamarin.Forms applications.
+Simple MVVM friendly control which brings Tinder-style swipe card view into Xamarin.Forms applications.
 
 NuGet: https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/
+
+## Features: 
+- `ItemSource` and `ItemTemplate` support
+- `SwipedLeftCommand` and `SwipedLeftCommand` support
+- **ANY** View can be used as a cell
+- **All** Xamarin.Forms platforms supported
 
 <img alt="" src="http://i68.tinypic.com/2h5psw9.png"  width="200px" /> <img alt="" src="http://i66.tinypic.com/2nh2lp4.png" width="200px"/>
 

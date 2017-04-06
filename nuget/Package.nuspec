@@ -8,9 +8,9 @@
     <licenseUrl>https://github.com/markolazic88/SwipeCardView/blob/master/LICENCE.md</licenseUrl>
     <projectUrl>https://github.com/markolazic88/SwipeCardView</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>SwipeCardView Control for Xamarin.Forms</description>
+    <description>SwipeCardView control for Xamarin.Forms</description>
     <releaseNotes>Initial release</releaseNotes>
-    <copyright>Copyright 2017 MarkoLazic88</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>xamarin xamarin.forms android ios swipe card view mltoolkit</tags>
     <dependencies>
       <dependency id="Xamarin.Forms" version="2.3.4" />

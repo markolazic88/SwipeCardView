@@ -5,9 +5,8 @@
     <version>1.0.0</version>
     <authors>Marko Lazic</authors>
     <owners>Marko Lazic</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <licenseUrl>https://github.com/markolazic88/SwipeCardView/blob/master/LICENCE.md</licenseUrl>
+    <projectUrl>https://github.com/markolazic88/SwipeCardView</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>SwipeCardView control for Xamarin.Forms</description>
     <releaseNotes>Initial release</releaseNotes>
@@ -19,7 +18,7 @@
   </metadata>
   
   	<files>
-		<file src="..\src\MLToolkit.Forms.SwipeCardView\bin\Release\MLToolkit.Forms.SwipeCardView.dll" target="lib\portable45-net45+wp8" />
+		<file src="..\src\MLToolkit.Forms.SwipeCardView\bin\Release\MLToolkit.Forms.SwipeCardView.dll" target="lib\portable-net45+wp80+win8+wpa81\MLToolkit.Forms.SwipeCardView.dll" />
 	</files>
   
 </package>

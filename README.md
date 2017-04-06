@@ -3,9 +3,9 @@
 Simple cross platform which brings Tinder-style swipe card view into Xamarin.Forms applications.
 
 
-<img alt="" src="http://i66.tinypic.com/2nh2lp4.png" style="height:356px; width:200px" />&nbsp;<img alt="" src="http://i68.tinypic.com/2h5psw9.png" style="height:356px; width:200px" />
+<img alt="" src="http://i66.tinypic.com/2nh2lp4.png" width="200px"/>&nbsp;<img alt="" src="http://i68.tinypic.com/2h5psw9.png"  width="200px" />
 
-<img alt="" src="http://i65.tinypic.com/2e4g1vn.png" style="height:356px; width:200px" />&nbsp;<img alt="" src="http://i68.tinypic.com/ngbtdu.png" style="height:356px; width:200px" />
+<img alt="" src="http://i65.tinypic.com/2e4g1vn.png" width="200px" />&nbsp;<img alt="" src="http://i68.tinypic.com/ngbtdu.png"  width="200px" />
 
 ## Simple Example:
 

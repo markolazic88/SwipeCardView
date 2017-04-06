@@ -7,9 +7,9 @@ NuGet: https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/
 ## Features: 
 - `ItemSource` and `ItemTemplate` support
 - `SwipedLeftCommand` and `SwipedLeftCommand` support
-- **ANY** View can be used as a cell
+- **Any** View can be used as a cell
 - **All** Xamarin.Forms platforms supported
-
+ 
 <img alt="" src="http://i68.tinypic.com/2h5psw9.png"  width="200px" /> <img alt="" src="http://i66.tinypic.com/2nh2lp4.png" width="200px"/>
 
 <img alt="" src="http://i68.tinypic.com/ngbtdu.png"  width="200px" /> <img alt="" src="http://i65.tinypic.com/2e4g1vn.png" width="200px" />
@@ -50,4 +50,4 @@ NuGet: https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/
         </swipeCardView:SwipeCardView>
 ```
 
-Based on [Xamarin Forms Cards Demo](https://github.com/matchboxmobile/xamarin-forms-swipecard-tutorial)
+Based on [Xamarin Forms Cards Demo](https://github.com/matchboxmobile/xamarin-forms-swipecard-tutorial).

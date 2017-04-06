@@ -43,3 +43,5 @@ NuGet: https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/
             </swipeCardView:SwipeCardView.ItemTemplate>
         </swipeCardView:SwipeCardView>
 ```
+
+Based on [Xamarin Forms Cards Demo](https://github.com/matchboxmobile/xamarin-forms-swipecard-tutorial)

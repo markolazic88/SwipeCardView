@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MLToolkit.Forms.SwipeCardView</id>
+    <version>1.0.0</version>
+    <authors>Marko Lazic</authors>
+    <owners>Marko Lazic</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SwipeCardView control for Xamarin.Forms</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>xamarin xamarin.forms android ios swipe card view mltoolkit</tags>
+    <dependencies>
+      <dependency id="Xamarin.Forms" version="2.3.4" />
+    </dependencies>
+  </metadata>
+  
+  	<files>
+		<file src="..\src\MLToolkit.Forms.SwipeCardView\bin\Release\MLToolkit.Forms.SwipeCardView.dll" target="lib\portable45-net45+wp8" />
+	</files>
+  
+</package>

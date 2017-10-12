@@ -1,6 +1,6 @@
 ## SwipeCardView Control for Xamarin Forms
 
-Simple MVVM friendly control which brings Tinder-style swipe card view into Xamarin.Forms applications.
+SwipeCardView is a lightweight MVVM friendly user control that brings Tinder-style swipe card view into Xamarin.Forms applications.
 
 NuGet: https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/
 
@@ -13,6 +13,28 @@ NuGet: https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/
 <img alt="" src="http://i68.tinypic.com/2h5psw9.png"  width="200px" /> <img alt="" src="http://i66.tinypic.com/2nh2lp4.png" width="200px"/>
 
 <img alt="" src="http://i68.tinypic.com/ngbtdu.png"  width="200px" /> <img alt="" src="http://i65.tinypic.com/2e4g1vn.png" width="200px" />
+
+## XAML Usage
+
+Example of how control should be used in XAML of your application:
+
+```XML
+<swipeCardView:SwipeCardView
+                            ItemsSource="{Binding ViewModelItems}"
+                            SwipedLeftCommand="{Binding SwipedLeftCommand}"
+                            SwipedRightCommand="{Binding SwipedRightCommand}"
+                            TopItem="{Binding TopItem}">
+     <swipeCardView:SwipeCardView.ItemTemplate>
+          <DataTemplate x:Name="SomeTemplate">
+		<!-- Template -->
+          </DataTemplate>
+      </swipeCardView:SwipeCardView.ItemTemplate>
+</swipeCardView:SwipeCardView>
+```
+
+ViewModelItems is an ObrvableCollection defined in your ViewModel
+TopItem is observable property that should have the same type like the elements of the collection
+Template represent how each card should look like
 
 ## Example:
 
@@ -50,4 +72,4 @@ NuGet: https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/
 </swipeCardView:SwipeCardView>
 ```
 
-Based on [Xamarin Forms Cards Demo](https://github.com/matchboxmobile/xamarin-forms-swipecard-tutorial).
+For a detailed explanation of design, implementation and usage of this library, check my blog post: [Create Tinder-like UI in Xamarin Forms using SwipeCardView](https://markolazic.com/swipecardview-tinder-ui-xamarin-forms/).

@@ -89,10 +89,7 @@
 
         public IList ItemsSource
         {
-            get
-            {
-                return (IList)this.GetValue(ItemsSourceProperty);
-            }
+            get => (IList)this.GetValue(ItemsSourceProperty);
             set
             {
                 this.SetValue(ItemsSourceProperty, value);
@@ -102,38 +99,26 @@
 
         public DataTemplate ItemTemplate
         {
-            get
-            {
-                return (DataTemplate)this.GetValue(ItemTemplateProperty);
-            }
-            set
-            {
-                this.SetValue(ItemTemplateProperty, value);
-            }
+            get => (DataTemplate)this.GetValue(ItemTemplateProperty);
+            set => this.SetValue(ItemTemplateProperty, value);
         }
 
         public object TopItem
         {
-            get
-            {
-                return (object)this.GetValue(TopItemProperty);
-            }
-            set
-            {
-                this.SetValue(TopItemProperty, value);
-            }
+            get => (object)this.GetValue(TopItemProperty);
+            set => this.SetValue(TopItemProperty, value);
         }
 
         public ICommand SwipedLeftCommand
         {
-            get { return (ICommand)this.GetValue(SwipedLeftCommandProperty); }
-            set { this.SetValue(SwipedLeftCommandProperty, value); }
+            get => (ICommand)this.GetValue(SwipedLeftCommandProperty);
+            set => this.SetValue(SwipedLeftCommandProperty, value);
         }
 
         public ICommand SwipedRightCommand
         {
-            get { return (ICommand)this.GetValue(SwipedRightCommandProperty); }
-            set { this.SetValue(SwipedRightCommandProperty, value); }
+            get => (ICommand)this.GetValue(SwipedRightCommandProperty);
+            set => this.SetValue(SwipedRightCommandProperty, value);
         }
 
         private static void OnItemTemplatePropertyChanged(BindableObject bindable, object oldValue, object newValue)

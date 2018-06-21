@@ -38,6 +38,8 @@ Template represent how each card should look like
 
 ## Example:
 
+Full working example can be found on my GitHub repository. It’s an image gallery app called [DailyCat](https://github.com/markolazic88/DailyCat).
+
 ```XML
 <swipeCardView:SwipeCardView
                             ItemsSource="{Binding Cats}"

@@ -121,6 +121,50 @@
             set => this.SetValue(SwipedRightCommandProperty, value);
         }
 
+        /// <summary>
+        /// Simpulates PanGesture movement on left
+        /// </summary>
+        /// <param name="numberOfTouches">Number of touch events. It should be positive number (i.e. 50)</param>
+        /// <param name="differenceX">Distance betweeen two touches. It should be positive number (i.e. 50)</param>
+        public void InvokeSwipeLeft(int numberOfTouches, int differenceX)
+        {
+            if (numberOfTouches <= 0 || differenceX <= 0)
+            {
+                return;
+            }
+
+            this.HandleTouchStart();
+
+            for (var i = 1; i < numberOfTouches; i++)
+            {
+                HandleTouch(-differenceX * i);
+            }
+
+            this.HandleTouchEnd();
+        }
+
+        /// <summary>
+        /// Simpulates PanGesture movement on right
+        /// </summary>
+        /// <param name="numberOfTouches">Number of touch events. It should be positive number (i.e. 50)</param>
+        /// <param name="differenceX">Distance betweeen two touches. It should be positive number (i.e. 50)</param>
+        public void InvokeSwipeRight(int numberOfTouches, int differenceX)
+        {
+            if (numberOfTouches <= 0 || differenceX <= 0)
+            {
+                return;
+            }
+
+            this.HandleTouchStart();
+
+            for (var i = 1; i < numberOfTouches; i++)
+            {
+                HandleTouch(differenceX * i);
+            }
+
+            this.HandleTouchEnd();
+        }
+
         private static void OnItemTemplatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var swipeCardView = (SwipeCardView)bindable;
@@ -135,7 +179,7 @@
             var view = new RelativeLayout();
 
             // create a stack of cards
-            for (int i = 0; i < NumCards; i++)
+            for (var i = 0; i < NumCards; i++)
             {
                 var content = swipeCardView.ItemTemplate.CreateContent();
                 if (!(content is View) && !(content is ViewCell))

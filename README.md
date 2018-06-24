@@ -2,7 +2,7 @@
 
 SwipeCardView is a lightweight MVVM friendly user control that brings Tinder-style swipe card view into Xamarin.Forms applications.
 
-NuGet: https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/
+[![NuGet](https://img.shields.io/nuget/v/MLToolkit.Forms.SwipeCardView.svg?label=NuGet)](https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/)
 
 ## Features: 
 - `ItemSource` and `ItemTemplate` support

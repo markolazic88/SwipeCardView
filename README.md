@@ -1,8 +1,10 @@
-## SwipeCardView Control for Xamarin Forms
+## SwipeCardView Control for Xamarin Forms [![NuGet](https://img.shields.io/nuget/v/MLToolkit.Forms.SwipeCardView.svg?label=NuGet)](https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/)
 
 SwipeCardView is a lightweight MVVM friendly user control that brings Tinder-style swipe card view into Xamarin.Forms applications.
 
-[![NuGet](https://img.shields.io/nuget/v/MLToolkit.Forms.SwipeCardView.svg?label=NuGet)](https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/)
+## Setup
+* Available on NuGet: (https://www.nuget.org/packages/MLToolkit.Forms.SwipeCardView/
+* Install into your PCL/.NET Standard project
 
 ## Features: 
 - `ItemSource` and `ItemTemplate` support
@@ -25,7 +27,7 @@ Example of how control should be used in XAML of your application:
                             SwipedRightCommand="{Binding SwipedRightCommand}"
                             TopItem="{Binding TopItem}">
      <swipeCardView:SwipeCardView.ItemTemplate>
-          <DataTemplate x:Name="SomeTemplate">
+          <DataTemplate>
 		<!-- Template -->
           </DataTemplate>
       </swipeCardView:SwipeCardView.ItemTemplate>

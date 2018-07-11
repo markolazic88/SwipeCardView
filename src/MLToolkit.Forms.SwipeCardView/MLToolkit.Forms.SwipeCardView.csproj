@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>MLToolkit.Forms.SwipeCardView</PackageId>
+    <Version>1.2.0</Version>
+    <Authors>Marko Lazic</Authors>
+    <Owners>Marko Lazic</Owners>
+    <PackageProjectUrl>https://github.com/markolazic88/SwipeCardView</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/markolazic88/SwipeCardView/blob/master/LICENCE.md</PackageLicenseUrl>
+    <PackageTags>xamarin xamarin.forms android ios swipe card view mltoolkit tinder</PackageTags>
+    <Description>SwipeCardView is a lightweight MVVM friendly user control that brings Tinder-style swipe card view into Xamarin.Forms applications.</Description>
+    <Copyright>Copyright 2018</Copyright>
+    <RepositoryUrl>https://github.com/markolazic88/SwipeCardView</RepositoryUrl>
+    <PackageReleaseNotes>- Updated library to target netstandard 2.0
+- Updated Xamarin Forms dependency to 3.0.0.561731
+- Added InvokeSwipeLeft and InvokeSwipeRight methods</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

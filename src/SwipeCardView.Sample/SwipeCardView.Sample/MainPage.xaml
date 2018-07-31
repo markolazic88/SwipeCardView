@@ -16,6 +16,8 @@
                 </DataTemplate>
             </swipeCardView:SwipeCardView.ItemTemplate>
         </swipeCardView:SwipeCardView>
+        <Button Text="Clear Items" Command="{Binding ClearItemsCommand}"></Button>
+        <Button Text="Add 5 Items" Command="{Binding AddItemsCommand}"></Button>
     </StackLayout>
 
 </ContentPage>

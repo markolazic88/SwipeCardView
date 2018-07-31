@@ -224,6 +224,17 @@
 
         private void OnItemSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                itemIndex = 0;
+                foreach (var card in cards)
+                {
+                    card.IsVisible = false;
+                }
+
+                return;
+            }
+
             if (this.cards[0].IsVisible == false && this.cards[1].IsVisible == false)
             {
                 this.Setup();

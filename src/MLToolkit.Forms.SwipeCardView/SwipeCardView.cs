@@ -262,6 +262,11 @@
 
         private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
+            if (this.ItemsSource.Count == 0)
+            {
+                return;
+            }
+
             switch (e.StatusType)
             {
                 case GestureStatus.Started:

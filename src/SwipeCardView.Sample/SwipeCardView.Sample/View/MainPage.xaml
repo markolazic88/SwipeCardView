@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:SwipeCardView.Sample.View;assembly=SwipeCardView.Sample"
+             x:Class="SwipeCardView.Sample.View.MainPage"
+             Title="SwipeCardView Sample">
+
+    <StackLayout VerticalOptions="CenterAndExpand" Padding="10">
+        <Button Text="Tinder Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:TinderPage}"></Button>
+        <Button Text="Simple Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:SimplePage}"></Button>
+        <Button Text="Colors Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:ColorsPage}"></Button>
+        <Button Text="Customizable Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:CustomizablePage}"></Button>
+    </StackLayout>
+
+</ContentPage>

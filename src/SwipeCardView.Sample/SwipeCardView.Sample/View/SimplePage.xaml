@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
+             x:Class="SwipeCardView.Sample.View.SimplePage"
+             Title="Simple Page">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <swipeCardView:SwipeCardView 
+                ItemsSource="{Binding CardItems}"
+                SwipedCommand="{Binding SwipedCommand}"
+                VerticalOptions="FillAndExpand">
+                <swipeCardView:SwipeCardView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding .}" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" BackgroundColor="Beige"/>
+                    </DataTemplate>
+                </swipeCardView:SwipeCardView.ItemTemplate>
+            </swipeCardView:SwipeCardView>
+            <Label Text="{Binding Message}" HorizontalOptions="CenterAndExpand" />
+            <Button Text="Clear Items" Command="{Binding ClearItemsCommand}"></Button>
+            <Button Text="Add 5 Items" Command="{Binding AddItemsCommand}"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -23,6 +23,10 @@ namespace SwipeCardView.Sample.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            App.ScreenWidth = UIScreen.MainScreen.Bounds.Width;
+            App.ScreenHeight = UIScreen.MainScreen.Bounds.Height;
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
+             x:Class="SwipeCardView.Sample.View.CustomizablePage"
+             Title="Customizable Page">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <swipeCardView:SwipeCardView
+                x:Name="SwipeCardView"
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand"
+                ItemsSource="{Binding CardItems}"
+                TopItem="{Binding TopItem}"
+                SwipedCommand="{Binding SwipedCommand}"
+                DraggingCommand="{Binding DraggingCommand}"
+                SupportedDraggingDirections="{Binding SupportedDraggingDirections}"
+                SupportedSwipeDirections="{Binding SupportedSwipeDirections}"
+                Threshold="{Binding Threshold}"   
+                AnimationLength="{Binding AnimationLength}"
+                BackCardScale="{Binding BackCardScale}"
+                CardRotation="{Binding CardRotation}"
+                >
+                <swipeCardView:SwipeCardView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="10" Padding="0" BorderColor="Orange" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Beige">
+                            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                <Label Text="{Binding .}" FontSize="Large" />
+                                <Label x:Name="DirectionLabel" />
+                                <Label x:Name="PositionLabel" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </swipeCardView:SwipeCardView.ItemTemplate>
+            </swipeCardView:SwipeCardView>
+
+            <StackLayout Spacing="1">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="TopItem: "></Label>
+                <Label Text="{Binding TopItem}"></Label>
+            </StackLayout>
+
+            <StackLayout>
+                <Label Text="Supported Dragging Directions:"></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Right" VerticalTextAlignment="Center"></Label>
+                    <Switch IsToggled="{Binding IsDraggingRightSupported}"></Switch>
+                    <Label Text="Left" VerticalTextAlignment="Center"></Label>
+                    <Switch IsToggled="{Binding IsDraggingLeftSupported}"></Switch>
+                    <Label Text="Up" VerticalTextAlignment="Center"></Label>
+                    <Switch IsToggled="{Binding IsDraggingUpSupported}"></Switch>
+                    <Label Text="Down" VerticalTextAlignment="Center"></Label>
+                    <Switch IsToggled="{Binding IsDraggingDownSupported}"></Switch>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout>
+                <Label Text="Supported Swipe Directions:"></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Right" VerticalTextAlignment="Center"></Label>
+                    <Switch IsToggled="{Binding IsSwipeRightSupported}"></Switch>
+                    <Label Text="Left" VerticalTextAlignment="Center"></Label>
+                    <Switch IsToggled="{Binding IsSwipeLeftSupported}"></Switch>
+                    <Label Text="Up" VerticalTextAlignment="Center"></Label>
+                    <Switch IsToggled="{Binding IsSwipeUpSupported}"></Switch>
+                    <Label Text="Down" VerticalTextAlignment="Center"></Label>
+                    <Switch IsToggled="{Binding IsSwipeDownSupported}"></Switch>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Threshold:" VerticalOptions="Center"></Label>
+                <Entry Text="{Binding Threshold}" Keyboard="Numeric" VerticalOptions="Center" WidthRequest="50"></Entry>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="AnimationLength:" VerticalOptions="Center"></Label>
+                    <Entry Text="{Binding AnimationLength}" Keyboard="Numeric" VerticalOptions="Center" WidthRequest="50"></Entry>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="BackCardScale:" VerticalOptions="Center"></Label>
+                    <Entry Text="{Binding BackCardScale}" Keyboard="Numeric" VerticalOptions="Center" WidthRequest="50"></Entry>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Rotation:" VerticalOptions="Center"></Label>
+                <Label Text="{Binding CardRotation}" WidthRequest="50"></Label>
+                <Slider Minimum="0" Maximum="360" Value="{Binding CardRotation}" MinimumTrackColor="DeepPink" MaximumTrackColor="Blue" HorizontalOptions="FillAndExpand" ></Slider>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Button Text="Clear Items" Command="{Binding ClearItemsCommand}"></Button>
+                <Button Text="Add 5 Items" Command="{Binding AddItemsCommand}"></Button>
+            </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

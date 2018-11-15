@@ -1,13 +1,16 @@
-﻿namespace MLToolkit.Forms.SwipeCardView
+﻿using System;
+using System.Collections;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+using Xamarin.Forms;
+
+using MLToolkit.Forms.SwipeCardView.Core;
+
+namespace MLToolkit.Forms.SwipeCardView
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Specialized;
-    using System.Diagnostics;
-    using System.Windows.Input;
-
-    using Xamarin.Forms;
-
     public class SwipeCardView : ContentView
     {
         public static readonly BindableProperty ItemsSourceProperty =
@@ -25,18 +28,6 @@
                 typeof(SwipeCardView),
                 propertyChanged: OnItemTemplatePropertyChanged);
 
-        public static readonly BindableProperty SwipedLeftCommandProperty =
-            BindableProperty.Create(
-                nameof(SwipedLeftCommand),
-                typeof(ICommand),
-                typeof(SwipeCardView));
-
-        public static readonly BindableProperty SwipedRightCommandProperty =
-            BindableProperty.Create(
-                nameof(SwipedRightCommand),
-                typeof(ICommand),
-                typeof(SwipeCardView));
-
         public static readonly BindableProperty TopItemProperty =
             BindableProperty.Create(
                 nameof(TopItem),
@@ -45,47 +36,116 @@
                 null,
                 BindingMode.OneWayToSource);
 
-        private const float BackCardScale = 0.8f; // Back card scale
+        public static readonly BindableProperty SwipedCommandProperty =
+            BindableProperty.Create(
+                nameof(SwipedCommand),
+                typeof(ICommand),
+                typeof(SwipeCardView));
 
-        private const int AnimationLength = 250; // Speed of the animations
+        public static readonly BindableProperty SwipedCommandParameterProperty =
+            BindableProperty.Create(
+                nameof(SwipedCommandParameter),
+                typeof(object),
+                    typeof(SwipeCardView));
 
-        private const float DegreesToRadians = 57.2957795f; // 180 / pi
+        public static readonly BindableProperty DraggingCommandProperty =
+            BindableProperty.Create(
+                nameof(DraggingCommand),
+                typeof(ICommand),
+                typeof(SwipeCardView));
 
-        private const float CardRotationAdjuster = 0.3f; // Higher the number less the rotation effect
+        public static readonly BindableProperty DraggingCommandParameterProperty =
+            BindableProperty.Create(
+                nameof(DraggingCommandParameter),
+                typeof(object),
+                typeof(SwipeCardView));
 
+        public static readonly BindableProperty ThresholdProperty =
+            BindableProperty.Create(
+                nameof(Threshold),
+                typeof(uint),
+                typeof(SwipeCardView),
+                DefaultThreshold);
+
+        public static readonly BindableProperty SupportedSwipeDirectionsProperty =
+            BindableProperty.Create(
+                nameof(SupportedSwipeDirections),
+                typeof(SwipeCardDirection),
+                typeof(SwipeCardView),
+                DefaultSupportedSwipeDirections);
+
+        public static readonly BindableProperty SupportedDraggingDirectionsProperty =
+            BindableProperty.Create(
+                nameof(SupportedDraggingDirections),
+                typeof(SwipeCardDirection),
+                typeof(SwipeCardView),
+                DefaultSupportedDraggingDirections);
+
+        public static readonly BindableProperty BackCardScaleProperty =
+            BindableProperty.Create(
+                nameof(BackCardScale),
+                typeof(float),
+                typeof(SwipeCardView),
+                DefaultBackCardScale);
+
+        public static readonly BindableProperty CardRotationProperty =
+            BindableProperty.Create(
+                nameof(CardRotation),
+                typeof(float),
+                typeof(SwipeCardView),
+                DefaultCardRotation);
+
+        public static readonly BindableProperty AnimationLengthProperty =
+            BindableProperty.Create(
+                nameof(AnimationLength),
+                typeof(uint),
+                typeof(SwipeCardView),
+                DefaultAnimationLength);
+
+        private const uint DefaultThreshold = 100;
+
+        private const SwipeCardDirection DefaultSupportedSwipeDirections = SwipeCardDirection.Left | SwipeCardDirection.Right | SwipeCardDirection.Up | SwipeCardDirection.Down;
+        
+        private const SwipeCardDirection DefaultSupportedDraggingDirections = SwipeCardDirection.Left | SwipeCardDirection.Right | SwipeCardDirection.Up | SwipeCardDirection.Down;
+
+        private const float DefaultBackCardScale = 0.8f;
+        
+        private const float DefaultCardRotation = 20;
+        
+        private const uint DefaultAnimationLength = 250; // Speed of the animations
+        
         private const int NumCards = 2; // Number of cards in stack
 
-        private const string DefaultBackgroundColor = "#F5F8FA";
+        private const uint InvokeSwipeDefaultNumberOfTouches = 20;
+        private const uint InvokeSwipeDefaultTouchDifference = 10;
+        private const uint InvokeSwipeDefaultTouchDelay = 1;
+        private const uint InvokeSwipeDefaultEndDelay = 200;
 
-        private const string DefaultCardBackgroundColor = "#FFFFFF";
 
-        private const string SwipeLeftBackgroundColor = "#EF5350";
+        private readonly View[] _cards = new View[NumCards];
 
-        private const string SwipeRightBackgroundColor = "#66BB6A";
+        private int _topCardIndex;  // The card at the top of the stack
 
-        private readonly View[] cards = new View[NumCards];
+        private float _cardDistanceX = 0;   // Distance the card has been moved on X axis
 
-        private int topCardIndex;  // The card at the top of the stack
+        private float _cardDistanceY = 0;   // Distance the card has been moved on Y axis
 
-        private float cardDistance = 0;   // Distance the card has been moved
+        private int _itemIndex = 0; // The last items index added to the stack of the cards
 
-        private int itemIndex = 0; // The last items index added to the stack of the cards
-
-        private bool ignoreTouch = false;
+        private bool _ignoreTouch = false;
 
         public SwipeCardView()
         {
             var view = new RelativeLayout();
 
-            this.BackgroundColor = Color.FromHex(DefaultBackgroundColor);
             this.Content = view;
 
             var panGesture = new PanGestureRecognizer();
             panGesture.PanUpdated += this.OnPanUpdated;
             this.GestureRecognizers.Add(panGesture);
-        }
 
-        public int CardMoveDistance { get; set; } // Distance a card must be moved to consider to be swiped off
+            this.DraggingCardPosition = DraggingCardPosition.Start;
+        }
 
         public IList ItemsSource
         {
@@ -93,7 +153,7 @@
             set
             {
                 this.SetValue(ItemsSourceProperty, value);
-                this.itemIndex = 0;
+                _itemIndex = 0;
             }
         }
 
@@ -109,61 +169,71 @@
             set => this.SetValue(TopItemProperty, value);
         }
 
-        public ICommand SwipedLeftCommand
+        public ICommand SwipedCommand
         {
-            get => (ICommand)this.GetValue(SwipedLeftCommandProperty);
-            set => this.SetValue(SwipedLeftCommandProperty, value);
+            get => (ICommand)this.GetValue(SwipedCommandProperty);
+            set => this.SetValue(SwipedCommandProperty, value);
         }
 
-        public ICommand SwipedRightCommand
+        public object SwipedCommandParameter
         {
-            get => (ICommand)this.GetValue(SwipedRightCommandProperty);
-            set => this.SetValue(SwipedRightCommandProperty, value);
+            get => GetValue(SwipedCommandParameterProperty);
+            set => SetValue(SwipedCommandParameterProperty, value);
         }
 
-        /// <summary>
-        /// Simpulates PanGesture movement on left
-        /// </summary>
-        /// <param name="numberOfTouches">Number of touch events. It should be positive number (i.e. 50)</param>
-        /// <param name="differenceX">Distance betweeen two touches. It should be positive number (i.e. 50)</param>
-        public void InvokeSwipeLeft(int numberOfTouches, int differenceX)
+        public ICommand DraggingCommand
         {
-            if (numberOfTouches <= 0 || differenceX <= 0)
-            {
-                return;
-            }
-
-            this.HandleTouchStart();
-
-            for (var i = 1; i < numberOfTouches; i++)
-            {
-                HandleTouch(-differenceX * i);
-            }
-
-            this.HandleTouchEnd();
+            get => (ICommand)this.GetValue(DraggingCommandProperty);
+            set => this.SetValue(DraggingCommandProperty, value);
         }
 
-        /// <summary>
-        /// Simpulates PanGesture movement on right
-        /// </summary>
-        /// <param name="numberOfTouches">Number of touch events. It should be positive number (i.e. 50)</param>
-        /// <param name="differenceX">Distance betweeen two touches. It should be positive number (i.e. 50)</param>
-        public void InvokeSwipeRight(int numberOfTouches, int differenceX)
+        public object DraggingCommandParameter
         {
-            if (numberOfTouches <= 0 || differenceX <= 0)
-            {
-                return;
-            }
-
-            this.HandleTouchStart();
-
-            for (var i = 1; i < numberOfTouches; i++)
-            {
-                HandleTouch(differenceX * i);
-            }
-
-            this.HandleTouchEnd();
+            get => GetValue(DraggingCommandParameterProperty);
+            set => SetValue(DraggingCommandParameterProperty, value);
         }
+
+        public uint Threshold
+        {
+            get => (uint)this.GetValue(ThresholdProperty);
+            set => this.SetValue(ThresholdProperty, value);
+        }
+
+        public SwipeCardDirection SupportedSwipeDirections
+        {
+            get => (SwipeCardDirection)this.GetValue(SupportedSwipeDirectionsProperty);
+            set => this.SetValue(SupportedSwipeDirectionsProperty, value);
+        }
+
+        public SwipeCardDirection SupportedDraggingDirections
+        {
+            get => (SwipeCardDirection)this.GetValue(SupportedDraggingDirectionsProperty);
+            set => this.SetValue(SupportedDraggingDirectionsProperty, value);
+        }
+
+        public float BackCardScale
+        {
+            get => (float)this.GetValue(BackCardScaleProperty);
+            set => this.SetValue(BackCardScaleProperty, value);
+        }
+
+        public float CardRotation
+        {
+            get => (float)this.GetValue(CardRotationProperty);
+            set => this.SetValue(CardRotationProperty, value);
+        }
+
+        public uint AnimationLength
+        {
+            get => (uint)this.GetValue(AnimationLengthProperty);
+            set => this.SetValue(AnimationLengthProperty, value);
+        }
+
+        public event EventHandler<SwipedCardEventArgs> Swiped;
+
+        public event EventHandler<DraggingCardEventArgs> Dragging;
+
+        private DraggingCardPosition DraggingCardPosition { get; set; }
 
         private static void OnItemTemplatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -189,10 +259,8 @@
 
                 var card = content is View ? content as View : ((ViewCell)content).View;
 
-                swipeCardView.cards[i] = card;
-                card.InputTransparent = true;
+                swipeCardView._cards[i] = card;
                 card.IsVisible = false;
-                card.BackgroundColor = Color.FromHex(DefaultCardBackgroundColor);
 
                 view.Children.Add(
                     card,
@@ -226,8 +294,8 @@
         {
             if (e.Action == NotifyCollectionChangedAction.Reset)
             {
-                itemIndex = 0;
-                foreach (var card in cards)
+                _itemIndex = 0;
+                foreach (var card in _cards)
                 {
                     card.IsVisible = false;
                 }
@@ -235,7 +303,7 @@
                 return;
             }
 
-            if (this.cards[0].IsVisible == false && this.cards[1].IsVisible == false)
+            if (_cards[0].IsVisible == false && _cards[1].IsVisible == false)
             {
                 this.Setup();
             }
@@ -243,23 +311,28 @@
 
         private void Setup()
         {
+            if (this.ItemsSource == null)
+            {
+                return;
+            }
+
             // Set the top card
-            this.topCardIndex = 0;
+            _topCardIndex = 0;
 
             // Create a stack of cards
             for (var i = 0; i < Math.Min(NumCards, this.ItemsSource.Count); i++)
             {
-                if (this.itemIndex >= this.ItemsSource.Count)
+                if (_itemIndex >= this.ItemsSource.Count)
                 {
                     break;
                 }
 
-                var card = this.cards[i];
-                card.BindingContext = this.ItemsSource[this.itemIndex];
+                var card = _cards[i];
+                card.BindingContext = this.ItemsSource[_itemIndex];
 
                 if (i == 0)
                 {
-                    this.TopItem = this.ItemsSource[this.itemIndex];
+                    this.TopItem = this.ItemsSource[_itemIndex];
                 }
 
                 card.IsVisible = true;
@@ -267,7 +340,7 @@
                 card.RotateTo(0, 0);
                 card.TranslateTo(0, -card.Y, 0);
                 ((RelativeLayout)this.Content).LowerChild(card);
-                this.itemIndex++;
+                _itemIndex++;
             }
         }
 
@@ -284,7 +357,7 @@
                     this.HandleTouchStart();
                     break;
                 case GestureStatus.Running:
-                    this.HandleTouch((float)e.TotalX);
+                    this.HandleTouch((float)e.TotalX, (float)e.TotalY);
                     break;
                 case GestureStatus.Completed:
                     this.HandleTouchEnd();
@@ -292,116 +365,149 @@
             }
         }
 
-        // Hande when a touch event begins
+        // Handle when a touch event begins
         private void HandleTouchStart()
         {
-            this.cardDistance = 0;
+            _cardDistanceX = 0;
+            _cardDistanceY = 0;
+            var topCard = _cards[_topCardIndex];
+            this.SendDragging(topCard, SwipeCardDirection.None, DraggingCardPosition.Start, 0, 0);
         }
 
         // Handle the ongoing touch event as the card is moved
-        private void HandleTouch(float differenceX)
+        private void HandleTouch(float differenceX, float differenceY)
         {
-            if (this.ignoreTouch)
+            if (_ignoreTouch)
             {
                 return;
             }
 
-            var topCard = this.cards[this.topCardIndex];
-            var backCard = this.cards[this.PrevCardIndex(this.topCardIndex)];
+            var topCard = _cards[_topCardIndex];
+            var backCard = _cards[this.PrevCardIndex(_topCardIndex)];
 
             // Move the top card
             if (topCard.IsVisible)
             {
                 // Move the card
-                topCard.TranslationX = differenceX;
+                if (differenceX > 0 && SupportedDraggingDirections.IsRight() || differenceX < 0 && SupportedDraggingDirections.IsLeft())
+                {
+                    topCard.TranslationX = differenceX;
 
-                // Calculate a angle for the card
-                var rotationAngle = (float)(CardRotationAdjuster * Math.Min(differenceX / this.Width, 1.0f));
-                topCard.Rotation = rotationAngle * DegreesToRadians;
+                    // Calculate a angle for the card
+                    var rotationAngle = (float)(CardRotation * Math.Min(differenceX / this.Width, 1.0f));
+                    topCard.Rotation = rotationAngle;
+                }
+
+                if (differenceY > 0 && SupportedDraggingDirections.IsDown() || differenceY < 0 && SupportedDraggingDirections.IsUp())
+                {
+                    topCard.TranslationY = differenceY;
+                }
 
                 // Keep a record of how far its moved
-                this.cardDistance = differenceX;
+                _cardDistanceX = differenceX;
+                _cardDistanceY = differenceY;
 
-                if (Math.Abs((int)this.cardDistance) > this.CardMoveDistance)
+                SwipeCardDirection direction;
+                DraggingCardPosition position;
+                if (Math.Abs(differenceX) > Math.Abs(differenceY))
                 {
-                    if (this.cardDistance > this.CardMoveDistance)
-                    {
-                        topCard.BackgroundColor = Color.FromHex(SwipeRightBackgroundColor);
-                    }
-                    else
-                    {
-                        topCard.BackgroundColor = Color.FromHex(SwipeLeftBackgroundColor);
-                    }
+                    direction = differenceX > 0 ? SwipeCardDirection.Right : SwipeCardDirection.Left;
+                    position = Math.Abs(differenceX) > this.Threshold ? DraggingCardPosition.OverThreshold : DraggingCardPosition.UnderThreshold;
                 }
                 else
                 {
-                    topCard.BackgroundColor = Color.FromHex(DefaultCardBackgroundColor);
+                    direction = differenceY > 0 ? SwipeCardDirection.Down : SwipeCardDirection.Up;
+                    position = Math.Abs(differenceY) > this.Threshold ? DraggingCardPosition.OverThreshold : DraggingCardPosition.UnderThreshold;
+                }
+
+                if (SupportedDraggingDirections.IsSupported(direction))
+                {
+                    this.SendDragging(topCard, direction, position, differenceX, differenceY);
                 }
             }
 
-            // Scale the backcard
+            // Scale the back card
             if (backCard.IsVisible)
             {
-                backCard.Scale = Math.Min(BackCardScale + Math.Abs((this.cardDistance / this.CardMoveDistance) * (1.0f - BackCardScale)), 1.0f);
+                var cardDistance = Math.Abs(differenceX) > Math.Abs(differenceY) ? differenceX : differenceY;
+                backCard.Scale = Math.Min(BackCardScale + Math.Abs((cardDistance / this.Threshold) * (1.0f - BackCardScale)), 1.0f);
             }
         }
 
         // Handle the end of the touch event
         private async void HandleTouchEnd()
         {
-            this.ignoreTouch = true;
+            _ignoreTouch = true;
 
-            var topCard = this.cards[this.topCardIndex];
-            topCard.BackgroundColor = Color.FromHex(DefaultCardBackgroundColor);
+            var topCard = _cards[_topCardIndex];
 
-            // If the card was move enough to be considered swiped off
-            if (Math.Abs((int)this.cardDistance) > this.CardMoveDistance)
+            SwipeCardDirection direction;
+            DraggingCardPosition position;
+            if (Math.Abs(_cardDistanceX) > Math.Abs(_cardDistanceY))
             {
-                // move off the screen
-                await topCard.TranslateTo(this.cardDistance > 0 ? this.Width : -this.Width, 0, AnimationLength / 2, Easing.SpringOut);
+                direction = _cardDistanceX > 0 ? SwipeCardDirection.Right : SwipeCardDirection.Left;
+                position = Math.Abs(_cardDistanceX) > this.Threshold ? DraggingCardPosition.FinishedOverThreshold : DraggingCardPosition.FinishedUnderThreshold;
+            }
+            else
+            {
+                direction = _cardDistanceY > 0 ? SwipeCardDirection.Down : SwipeCardDirection.Up;
+                position = Math.Abs(_cardDistanceY) > this.Threshold ? DraggingCardPosition.FinishedOverThreshold : DraggingCardPosition.FinishedUnderThreshold;
+            }
+
+            if (SupportedDraggingDirections.IsSupported(direction))
+            {
+                this.SendDragging(topCard, direction, position, _cardDistanceX, _cardDistanceY);
+            }
+
+            if (position == DraggingCardPosition.FinishedOverThreshold && this.SupportedSwipeDirections.IsSupported(direction))
+            {
+                // Move the top card off the screen
+                if (direction.IsLeft() || direction.IsRight())
+                {
+                    await topCard.TranslateTo(_cardDistanceX > 0 ? this.Width : -this.Width, 0, AnimationLength / 2, Easing.SpringOut);
+                }
+                else
+                {
+                    await topCard.TranslateTo(0, _cardDistanceY > 0 ? this.Height : -this.Height, AnimationLength / 2, Easing.SpringOut);
+                }
+
                 topCard.IsVisible = false;
 
-                if (this.SwipedRightCommand != null && this.cardDistance > 0)
-                {
-                    this.SwipedRightCommand.Execute(this.ItemsSource.IndexOf(topCard.BindingContext));
-                }
-                else if (this.SwipedLeftCommand != null)
-                {
-                    this.SwipedLeftCommand.Execute(this.ItemsSource.IndexOf(topCard.BindingContext));
-                }
+                this.SendSwiped(topCard, direction);
 
                 this.ShowNextCard();
             }
             else
             {
                 // Move the top card back to the center
+                // Not awaiting on purpose to allow TranslateTo, RotateTo and ScaleTo to happen simultaneously 
                 topCard.TranslateTo((-topCard.X), -topCard.Y, AnimationLength, Easing.SpringOut);
                 topCard.RotateTo(0, AnimationLength, Easing.SpringOut);
 
                 // Scale the back card down
-                var prevCard = this.cards[this.PrevCardIndex(this.topCardIndex)];
+                var prevCard = _cards[this.PrevCardIndex(_topCardIndex)];
                 await prevCard.ScaleTo(BackCardScale, AnimationLength, Easing.SpringOut);
             }
 
-            this.ignoreTouch = false;
+            _ignoreTouch = false;
         }
 
         private void ShowNextCard()
         {
-            if (this.cards[0].IsVisible == false && this.cards[1].IsVisible == false)
+            if (_cards[0].IsVisible == false && _cards[1].IsVisible == false)
             {
                 this.Setup();
                 return;
             }
 
-            this.TopItem = this.ItemsSource[this.itemIndex - 1];
+            this.TopItem = this.ItemsSource[_itemIndex - 1];
 
-            var topCard = this.cards[this.topCardIndex];
-            this.topCardIndex = this.NextCardIndex(this.topCardIndex);
+            var topCard = _cards[_topCardIndex];
+            _topCardIndex = this.NextCardIndex(_topCardIndex);
 
             // If there are more cards to show, show the next card in to place of 
-            // the card that was swipped off the screen
-            if (this.itemIndex < this.ItemsSource.Count)
+            // the card that was swiped off the screen
+            if (_itemIndex < this.ItemsSource.Count)
             {
                 // Push it to the back z order
                 ((RelativeLayout)this.Content).LowerChild(topCard);
@@ -418,10 +524,10 @@
                     Debug.WriteLine(exception);
                 }
 
-                topCard.BindingContext = this.ItemsSource[this.itemIndex];
+                topCard.BindingContext = this.ItemsSource[_itemIndex];
 
                 topCard.IsVisible = true;
-                this.itemIndex++;
+                _itemIndex++;
             }
         }
 
@@ -440,7 +546,114 @@
         // Helper to get the scale based on the card index position relative to the top card
         private float GetScale(int index)
         {
-            return index == this.topCardIndex ? 1.0f : BackCardScale;
+            return index == _topCardIndex ? 1.0f : BackCardScale;
+        }
+
+        private void SendSwiped(View sender, SwipeCardDirection direction)
+        {
+            var cmd = this.SwipedCommand;
+            if (cmd != null && cmd.CanExecute(SwipedCommandParameter))
+            {
+                cmd.Execute(new SwipedCardEventArgs(sender.BindingContext, SwipedCommandParameter, direction));
+            }
+
+            Swiped?.Invoke(sender, new SwipedCardEventArgs(sender.BindingContext, SwipedCommandParameter, direction));
+        }
+
+        private void SendDragging(View sender, SwipeCardDirection direction, DraggingCardPosition position, double distanceDraggedX, double distanceDraggedY)
+        {
+            var cmd = this.DraggingCommand;
+            if (cmd != null && cmd.CanExecute(SwipedCommandParameter))
+            {
+                cmd.Execute(new DraggingCardEventArgs(sender.BindingContext, DraggingCommandParameter, direction, position, distanceDraggedX, distanceDraggedY));
+            }
+
+            Dragging?.Invoke(sender, new DraggingCardEventArgs(sender.BindingContext, DraggingCommandParameter, direction, position, distanceDraggedX, distanceDraggedY));
+        }
+
+        /// <summary>
+        /// Simulates PanGesture movement to left or right
+        /// </summary>
+        /// <param name="swipeCardDirection">Direction of the movement. Currently supported Left and Right.</param>
+        public async Task InvokeSwipe(SwipeCardDirection swipeCardDirection)
+        {
+            await this.InvokeSwipe(swipeCardDirection, InvokeSwipeDefaultNumberOfTouches,
+                InvokeSwipeDefaultTouchDifference, TimeSpan.FromMilliseconds(InvokeSwipeDefaultTouchDelay),
+                TimeSpan.FromMilliseconds(InvokeSwipeDefaultEndDelay));
+        }
+
+        /// <summary>
+        /// Simulates PanGesture movement to left or right
+        /// </summary>
+        /// <param name="swipeCardDirection">Direction of the movement. Currently supported Left and Right.</param>
+        /// <param name="numberOfTouches">Number of touch events. It should be a positive number (i.e. 20)</param>
+        /// <param name="touchDifference">Distance passed between two touches. It should be a positive number (i.e. 10)</param>
+        /// <param name="touchDelay">Delay between two touches. It should be a positive number (i.e. 1 millisecond)</param>
+        /// <param name="endDelay">End delay. It should be a positive number (i.e. 200 milliseconds)</param>
+        public async Task InvokeSwipe(SwipeCardDirection swipeCardDirection, uint numberOfTouches, uint touchDifference, TimeSpan touchDelay, TimeSpan endDelay)
+        {
+            if (numberOfTouches == 0 || touchDifference == 0)
+            {
+                return;
+            }
+
+            var differenceX = 0;
+            var differenceY = 0;
+
+            switch (swipeCardDirection)
+            {
+                case SwipeCardDirection.Right:
+                    differenceX = (int)touchDifference;
+                    break;
+                case SwipeCardDirection.Left:
+                    differenceX = (int) (-1 * touchDifference);
+                    break;
+                case SwipeCardDirection.Up:
+                    differenceY = (int) (-1 * touchDifference);
+                    break;
+                case SwipeCardDirection.Down:
+                    differenceY = (int) touchDifference;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(swipeCardDirection), swipeCardDirection, null);
+            }
+
+            this.HandleTouchStart();
+
+            for (var i = 1; i < numberOfTouches; i++)
+            {
+                this.HandleTouch(differenceX * i, differenceY * i);
+                await Task.Delay(touchDelay);
+            }
+
+            await Task.Delay(endDelay);
+
+            this.HandleTouchEnd();
+        }
+    }
+
+    internal static class SwipeCardDirectionExtensions
+    {
+        public static bool IsLeft(this SwipeCardDirection self)
+        {
+            return (self & SwipeCardDirection.Left) == SwipeCardDirection.Left;
+        }
+        public static bool IsRight(this SwipeCardDirection self)
+        {
+            return (self & SwipeCardDirection.Right) == SwipeCardDirection.Right;
+        }
+        public static bool IsUp(this SwipeCardDirection self)
+        {
+            return (self & SwipeCardDirection.Up) == SwipeCardDirection.Up;
+        }
+        public static bool IsDown(this SwipeCardDirection self)
+        {
+            return (self & SwipeCardDirection.Down) == SwipeCardDirection.Down;
+        }
+
+        public static bool IsSupported(this SwipeCardDirection self, SwipeCardDirection other)
+        {
+            return (self & other) == other;
         }
     }
 }

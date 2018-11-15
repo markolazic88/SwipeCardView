@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
+             x:Class="SwipeCardView.Sample.View.TinderPage"
+             BackgroundColor="#EEE"
+             Title ="Tinder">
+    <ContentPage.Content>
+        <StackLayout>
+            <swipeCardView:SwipeCardView
+                x:Name="SwipeCardView"
+                ItemsSource="{Binding Profiles}"
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand"
+                Padding="10"
+                SwipedCommand="{Binding SwipedCommand}"
+                DraggingCommand="{Binding DraggingCommand}"
+                Threshold="{Binding Threshold}"
+                SupportedSwipeDirections="Left, Right, Up"
+                SupportedDraggingDirections="Left, Right, Up, Down"
+            >
+                <swipeCardView:SwipeCardView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <AbsoluteLayout>
+                                    <Image Source="{Binding Photo}" Aspect="AspectFill"  AbsoluteLayout.LayoutBounds=".5,0.5,1,1" AbsoluteLayout.LayoutFlags="All"/>
+                                    <Frame x:Name="LikeFrame"  BorderColor="#63DD99" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.1,.1, 150, 50"
+                                         AbsoluteLayout.LayoutFlags="PositionProportional"  Rotation="-20" Opacity="0">
+                                        <Label x:Name="LikeText" Text="LIKE" TextColor="#63DD99" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+                                    </Frame>
+                                    <Frame x:Name="NopeFrame" BorderColor="#FF6A4F" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.9,.1, 150, 50"
+                                       AbsoluteLayout.LayoutFlags="PositionProportional"  Rotation="20" Opacity="0">
+                                        <Label Text="NOPE" TextColor="#FF6A4F" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+                                    </Frame>
+                                    <Frame x:Name="SuperLikeFrame" BorderColor="#2196F3" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.5,.7, 150, 100"
+                                        AbsoluteLayout.LayoutFlags="PositionProportional"  Rotation="-20" Opacity="0">
+                                        <Label Text="SUPER LIKE" TextColor="#2196F3" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+                                    </Frame>
+                                    <Label FontSize="Large" FontAttributes="Bold" TextColor="White" AbsoluteLayout.LayoutBounds="0.1,0.95, 150, 30" AbsoluteLayout.LayoutFlags="PositionProportional" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Name}"></Span>
+                                                <Span Text=", "></Span>
+                                                <Span Text="{Binding Age}"></Span>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </AbsoluteLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </swipeCardView:SwipeCardView.ItemTemplate>
+            </swipeCardView:SwipeCardView>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10, 10, 10, 20" Spacing="30">
+                <StackLayout>
+                    <Button x:Name="nopeButton" Image="ic_tinder_nope.png" Clicked="OnDislikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="60" BackgroundColor="White" Scale="1"></Button>
+                </StackLayout>
+                <StackLayout VerticalOptions="Center">
+                    <Button x:Name="superLikeButton" Image="ic_tinder_superlike.png" Clicked="OnSuperLikeClicked" WidthRequest="50" HeightRequest="50" CornerRadius="50" BackgroundColor="White" Scale="1"></Button>
+                </StackLayout>
+                <StackLayout>
+                    <Button x:Name="likeButton" Image="ic_tinder_like.png" Clicked="OnLikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="60" BackgroundColor="White" Scale="1"></Button>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

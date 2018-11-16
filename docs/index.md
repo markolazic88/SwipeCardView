@@ -2,8 +2,8 @@
 
 SwipeCardView is a view for presenting lists of data in cards that could be dragged and swiped off of the screen. This guide will show you how to use SwipeCardView:
 
-1. **[Data Source](#Data-Source)** &ndash; Populate a SwipeCardView with data using ItemSource, with or without data binding
-2. **[Card Appearance](#Card-Appereance)** &ndash; Customize the appearance of the cards using ItemTemplate
+1. **[Data Source](#Data-Source)** &ndash; Populate a SwipeCardView with data using ItemSource
+2. **[Card Appearance](#Card-Appearance)** &ndash; Customize the appearance of the cards using ItemTemplate
 3. **[Adjustability](#adjustability)** &ndash; Customize the behavior of SwipeCardView. Set card rotation, animation length, back card scale etc.
 4. **[Interactivity](#interactivity)** &ndash; Respond to dragging and swipe gestures using events or commands
 
@@ -14,15 +14,21 @@ SwipeCardView is a view for presenting lists of data in cards that could be drag
 A SwipeCardView is populated with data using the ItemsSource property, which can accept any collection implementing `IEnumerable`. The simplest way to populate a `SwipeCardView` involves using an array of strings:
 
 ```xaml
-<SwipeCardView>
-      <SwipeCardView.ItemsSource>
-          <x:Array Type="{x:Type x:String}">
+<swipeCardView:SwipeCardView 
+    VerticalOptions="FillAndExpand">
+    <swipeCardView:SwipeCardView.ItemTemplate>
+        <DataTemplate>
+            <Label Text="{Binding .}" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" BackgroundColor="Beige"/>
+        </DataTemplate>
+    </swipeCardView:SwipeCardView.ItemTemplate>
+    <swipeCardView:SwipeCardView.ItemsSource>
+        <x:Array Type="{x:Type x:String}">
             <x:String>Card 1</x:String>
             <x:String>Card 2</x:String>
             <x:String>Card 3</x:String>
-          </x:Array>
-      </SwipeCardView.ItemsSource>
-</SwipeCardView>
+        </x:Array>
+    </swipeCardView:SwipeCardView.ItemsSource>
+</swipeCardView:SwipeCardView>
 ```
 
 ### Data Binding

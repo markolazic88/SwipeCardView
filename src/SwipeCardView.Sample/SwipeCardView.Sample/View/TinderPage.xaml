@@ -54,13 +54,13 @@
             </swipeCardView:SwipeCardView>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10, 10, 10, 20" Spacing="30">
                 <StackLayout>
-                    <Button x:Name="nopeButton" Image="ic_tinder_nope.png" Clicked="OnDislikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="60" BackgroundColor="White" Scale="1"></Button>
+                    <Button x:Name="nopeButton" Image="ic_tinder_nope.png" Clicked="OnDislikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="White" Scale="1"></Button>
                 </StackLayout>
                 <StackLayout VerticalOptions="Center">
-                    <Button x:Name="superLikeButton" Image="ic_tinder_superlike.png" Clicked="OnSuperLikeClicked" WidthRequest="50" HeightRequest="50" CornerRadius="50" BackgroundColor="White" Scale="1"></Button>
+                    <Button x:Name="superLikeButton" Image="ic_tinder_superlike.png" Clicked="OnSuperLikeClicked" WidthRequest="50" HeightRequest="50" CornerRadius="25" BackgroundColor="White" Scale="1"></Button>
                 </StackLayout>
                 <StackLayout>
-                    <Button x:Name="likeButton" Image="ic_tinder_like.png" Clicked="OnLikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="60" BackgroundColor="White" Scale="1"></Button>
+                    <Button x:Name="likeButton" Image="ic_tinder_like.png" Clicked="OnLikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="White" Scale="1"></Button>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

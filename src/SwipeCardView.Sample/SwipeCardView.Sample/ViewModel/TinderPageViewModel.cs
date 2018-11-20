@@ -92,7 +92,12 @@ namespace SwipeCardView.Sample.ViewModel
             this.Profiles.Add(new Profile { ProfileId = 2, Name = "Sophia", Age = 21, Photo = "p597956.jpg"});
             this.Profiles.Add(new Profile { ProfileId = 3, Name = "Anne", Age = 19, Photo = "p497489.jpg"});
             this.Profiles.Add(new Profile { ProfileId = 4, Name = "Yvonne ", Age = 27, Photo = "p467499.jpg"});
-            this.Profiles.Add(new Profile { ProfileId = 5, Name = "Abby ", Age = 25, Photo = "p589739.jpg"});
+            this.Profiles.Add(new Profile { ProfileId = 5, Name = "Abby", Age = 25, Photo = "p589739.jpg"});
+            this.Profiles.Add(new Profile { ProfileId = 6, Name = "Andressa", Age = 28, Photo = "p453095.jpg"});
+            this.Profiles.Add(new Profile { ProfileId = 7, Name = "June", Age = 29, Photo = "p503001.jpg"});
+            this.Profiles.Add(new Profile { ProfileId = 8, Name = "Kim", Age = 22, Photo = "p627958.jpg"});
+            this.Profiles.Add(new Profile { ProfileId = 9, Name = "Denesha", Age = 26, Photo = "p474893.jpg"});
+            this.Profiles.Add(new Profile { ProfileId = 10, Name = "Sasha", Age = 23, Photo = "p458914.jpg"});
         }
     }
 }

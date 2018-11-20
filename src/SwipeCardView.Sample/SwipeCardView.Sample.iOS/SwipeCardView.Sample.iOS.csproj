@@ -189,4 +189,19 @@
   <ItemGroup>
     <BundleResource Include="Resources\p705193.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\p453095.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\p458914.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\p474893.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\p503001.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\p627958.jpg" />
+  </ItemGroup>
 </Project>

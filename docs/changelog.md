@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Introduced SwipeCommand and Swiped event, SwipedEventArgs and SwipedCardDirection
 - Introduced DraggingCommand, Dragging event, DraggingCardEventArgs and DraggingCardPosition
-- Introduced InvokeSwipeCommand that replaces InvokeSwipeLeft and InvokeSwipeRight
+- Introduced InvokeSwipe method, which replaces InvokeSwipeLeft and InvokeSwipeRight
 - Support for swiping and dragging in all 4 directions
 - Removed updating card background in favor of Dragging command/event
 - Added Samples (TinderPage, ColorsPage, CustomizablePage)

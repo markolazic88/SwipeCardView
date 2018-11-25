@@ -36,7 +36,7 @@ Dragging | `DraggingCardEventArgs` | It is raised during the dragging movement
 Property | Type | Description
 -- | -- | --
 Item | `System.Object` | Gets the item parameter
-Parameter |  `System.Object` | Ges the command parameter
+Parameter |  `System.Object` | Gets the command parameter
 Direction | `SwipeCardDirection` | Gets the direction of the swipe
 
 #### DraggingCardEventArgs
@@ -44,7 +44,7 @@ Direction | `SwipeCardDirection` | Gets the direction of the swipe
 Property | Type | Description
 -- | -- | --
 Item | `System.Object` | Gets the item parameter
-Parameter |  `System.Object` | Ges the command parameter
+Parameter |  `System.Object` | Gets the command parameter
 Direction | `SwipeCardDirection` | Gets the direction of the swipe
 Position | `DraggingCardPosition` | Gets the dragging position
 DistanceDraggedX | `double` | Gets the distance dragged on X axis
@@ -54,7 +54,7 @@ DistanceDraggedY | `double` | Gets the distance dragged on Y axis
 
 ### InvokeSwipe(SwipeCardDirection, UInt32, UInt32, TimeSpan)
 
-Simulates PanGesture movement to left or right
+Simulates PanGesture movement to the provided direction
 
 Declaration
 

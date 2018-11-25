@@ -5,7 +5,7 @@
 
 SwipeCardView is a lightweight MVVM friendly UI control that brings Tinder-style swipeable cards into Xamarin.Forms applications. It supports swiping in all directions while providing constant dragging feedback, which enables awesome interactivity.
 
-This netstandard2.0 library and is intended for anyone who wants to build swipeable UI in C#. As it's built on top of Xamarin.Forms, it works on Android, iOS and any other supported platform. If you are familiar with Xamarin.Forms ListView and SwipeGestureRecognizer interfaces, you will be able to utilize SwipeCardView with minimal effort. It's highly customizable too, by giving you options to set supported directions, back card scale, rotation angle etc.
+This netstandard2.0 library is intended for anyone who wants to build swipeable UI in C#. As it's built on top of Xamarin.Forms, it works on Android, iOS and any other supported platform. If you are familiar with Xamarin.Forms ListView and SwipeGestureRecognizer interfaces, you will be able to utilize SwipeCardView with minimal effort. It's highly customizable too, by giving you options to set supported directions, back card scale, rotation angle etc.
 
 ![SwipeCardView Android TinderPage Like](docs/images/SwipeCardView_Android_TinderPage_Like.gif)
 ![SwipeCardView Android TinderPage SuperLike](docs/images/SwipeCardView_Android_TinderPage_SuperLike.gif)
@@ -77,17 +77,15 @@ The intention of this sample is to demonstrate the SwipeCardView interactivity. 
 
 The intention of this sample is to replicate Tinder UI.
 
-![SwipeCardView Android TinderPage Like](docs/images/SwipeCardView_Android_TinderPageLike.png)
-![SwipeCardView Android TinderPage SuperLike](docs/images/SwipeCardView_Android_TinderPageSuperLike.png)
-![SwipeCardView Android TinderPage Nope](docs/images/SwipeCardView_Android_TinderPageNope.png)
+![SwipeCardView Android TinderPage Like](docs/images/SwipeCardView_Android_TinderPageLikeM.jpg)
+![SwipeCardView Android TinderPage SuperLike](docs/images/SwipeCardView_Android_TinderPageSuperLikeM.jpg)
+![SwipeCardView Android TinderPage Nope](docs/images/SwipeCardView_Android_TinderPageNopeM.jpg)
 
 - Data source is Profiles, an ObservableCollection of Profiles defined in the bound ViewModel
 - Card appearance is defined as a Frame with AbsoluteLayout containing all the necessary layers. Opacity LikeFrame, NopeFrame and SuperLikeFrame are updated on Dragging event
 - Various SwipeCardView properties are not being set, so the control is using default values
 - SwipedCommand will be triggered when the card is swiped over threshold. Dragging event is triggered while dragging gesture is being performed which updates the card appearance, as well as the scale of the control buttons
 - Just like in Tinder UI, all 4 dragging directions are supported, but swipe gesture is recognized only on Right, Left and Up
-
-For more details about building Tinder Page, check out my blog post (TBD).
 
 ### Customizable Page
 

@@ -36,6 +36,15 @@ namespace MLToolkit.Forms.SwipeCardView
                 null,
                 BindingMode.OneWayToSource);
 
+        public static readonly BindableProperty PreviousItemProperty =
+            BindableProperty.Create(
+                nameof(PreviousItem),
+                typeof(object),
+                typeof(SwipeCardView),
+                null,
+                BindingMode.OneWayToSource);
+
+
         public static readonly BindableProperty SwipedCommandProperty =
             BindableProperty.Create(
                 nameof(SwipedCommand),
@@ -167,6 +176,12 @@ namespace MLToolkit.Forms.SwipeCardView
         {
             get => (object)this.GetValue(TopItemProperty);
             set => this.SetValue(TopItemProperty, value);
+        }
+
+        public object PreviousItem
+        {
+            get => (object)this.GetValue(PreviousItemProperty);
+            set => this.SetValue(PreviousItemProperty, value);
         }
 
         public ICommand SwipedCommand
@@ -504,6 +519,45 @@ namespace MLToolkit.Forms.SwipeCardView
 
             var topCard = _cards[_topCardIndex];
             _topCardIndex = this.NextCardIndex(_topCardIndex);
+
+            // If there are more cards to show, show the next card in to place of 
+            // the card that was swiped off the screen
+            if (_itemIndex < this.ItemsSource.Count)
+            {
+                // Push it to the back z order
+                ((RelativeLayout)this.Content).LowerChild(topCard);
+
+                try
+                {
+                    // Reset its scale, opacity and rotation
+                    topCard.Scale = BackCardScale;
+                    topCard.RotateTo(0, 0);
+                    topCard.TranslateTo(0, -topCard.Y, 0);
+                }
+                catch (Exception exception)
+                {
+                    Debug.WriteLine(exception);
+                }
+
+                topCard.BindingContext = this.ItemsSource[_itemIndex];
+
+                topCard.IsVisible = true;
+                _itemIndex++;
+            }
+        }
+
+        private void ShowPreviousCard()
+        {
+            if (_cards[0].IsVisible == false && _cards[1].IsVisible == false)
+            {
+                this.Setup();
+                return;
+            }
+
+            this.TopItem = this.PreviousItem;
+
+            var topCard = _cards[_topCardIndex];
+            _topCardIndex = this.PrevCardIndex(_topCardIndex);
 
             // If there are more cards to show, show the next card in to place of 
             // the card that was swiped off the screen

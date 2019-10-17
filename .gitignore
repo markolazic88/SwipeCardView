@@ -241,3 +241,9 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /nuget/nuget.exe
+
+# ignore Xamarin.Android Resource.Designer.cs files
+**/*.Droid/**/[Rr]esource.[Dd]esigner.cs
+**/*.Android/**/[Rr]esource.[Dd]esigner.cs
+**/Android/**/[Rr]esource.[Dd]esigner.cs
+**/Droid/**/[Rr]esource.[Dd]esigner.cs

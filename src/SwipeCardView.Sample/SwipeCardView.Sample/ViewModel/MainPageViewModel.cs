@@ -6,21 +6,20 @@ namespace SwipeCardView.Sample.ViewModel
 {
     public class MainPageViewModel : BasePageViewModel
     {
-        public ICommand NavigateCommand { get; private set; }
-
         public MainPageViewModel(INavigation navigation)
         {
-            this.Navigation = navigation;
-            
+            Navigation = navigation;
+
             NavigateCommand = new Command<Type>(OnNavigateCommand);
         }
 
+        public ICommand NavigateCommand { get; private set; }
         private INavigation Navigation { get; set; }
 
         private async void OnNavigateCommand(Type pageType)
         {
             Page page = (Page)Activator.CreateInstance(pageType);
-            await this.Navigation.PushAsync(page);
+            await Navigation.PushAsync(page);
         }
     }
 }

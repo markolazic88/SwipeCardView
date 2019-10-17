@@ -11,5 +11,4 @@
         <Button Text="Colors Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:ColorsPage}"></Button>
         <Button Text="Customizable Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:CustomizablePage}"></Button>
     </StackLayout>
-
 </ContentPage>

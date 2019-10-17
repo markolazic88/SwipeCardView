@@ -10,7 +10,7 @@ namespace SwipeCardView.Sample.View
         public SimplePage()
         {
             InitializeComponent();
-            this.BindingContext = new SimplePageViewModel();
+            BindingContext = new SimplePageViewModel();
         }
     }
 }

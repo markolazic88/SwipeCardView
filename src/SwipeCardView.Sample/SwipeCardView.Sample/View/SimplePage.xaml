@@ -6,13 +6,13 @@
              Title="Simple Page">
     <ContentPage.Content>
         <StackLayout Padding="10">
-            <swipeCardView:SwipeCardView 
+            <swipeCardView:SwipeCardView
                 ItemsSource="{Binding CardItems}"
                 SwipedCommand="{Binding SwipedCommand}"
                 VerticalOptions="FillAndExpand">
                 <swipeCardView:SwipeCardView.ItemTemplate>
                     <DataTemplate>
-                        <Label Text="{Binding .}" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" BackgroundColor="Beige"/>
+                        <Label Text="{Binding .}" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" BackgroundColor="Beige" />
                     </DataTemplate>
                 </swipeCardView:SwipeCardView.ItemTemplate>
             </swipeCardView:SwipeCardView>

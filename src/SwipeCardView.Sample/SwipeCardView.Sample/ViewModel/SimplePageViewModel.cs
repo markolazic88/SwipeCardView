@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using MLToolkit.Forms.SwipeCardView.Core;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
-using MLToolkit.Forms.SwipeCardView.Core;
 using Xamarin.Forms;
 
 namespace SwipeCardView.Sample.ViewModel
@@ -11,13 +11,27 @@ namespace SwipeCardView.Sample.ViewModel
 
         private string _message;
 
+        public SimplePageViewModel()
+        {
+            _cardItems = new ObservableCollection<string>();
+            for (var i = 1; i <= 5; i++)
+            {
+                _cardItems.Add($"Card {i}");
+            }
+
+            SwipedCommand = new Command<SwipedCardEventArgs>(OnSwipedCommand);
+
+            ClearItemsCommand = new Command(OnClearItemsCommand);
+            AddItemsCommand = new Command(OnAddItemsCommand);
+        }
+
         public ObservableCollection<string> CardItems
         {
             get => _cardItems;
             set
             {
                 _cardItems = value;
-                this.RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -27,7 +41,7 @@ namespace SwipeCardView.Sample.ViewModel
             set
             {
                 _message = value;
-                this.RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -37,30 +51,16 @@ namespace SwipeCardView.Sample.ViewModel
 
         public ICommand AddItemsCommand { get; }
 
-        public SimplePageViewModel()
-        {
-            _cardItems = new ObservableCollection<string>();
-            for (var i = 1; i <= 5; i++)
-            {
-                _cardItems.Add($"Card {i}");
-            }
-
-            this.SwipedCommand = new Command<SwipedCardEventArgs>(this.OnSwipedCommand);
-
-            this.ClearItemsCommand = new Command(this.OnClearItemsCommand);
-            this.AddItemsCommand = new Command(this.OnAddItemsCommand);
-        }
-
         private void OnSwipedCommand(SwipedCardEventArgs eventArgs)
         {
             var item = eventArgs.Item as string;
-            this.Message = $"{item} swiped {eventArgs.Direction}";
+            Message = $"{item} swiped {eventArgs.Direction}";
         }
 
         private void OnClearItemsCommand()
         {
-            this.CardItems.Clear();
-            this.Message = string.Empty;
+            CardItems.Clear();
+            Message = string.Empty;
         }
 
         private void OnAddItemsCommand()

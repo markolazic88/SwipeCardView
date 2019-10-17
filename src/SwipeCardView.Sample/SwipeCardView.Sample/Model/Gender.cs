@@ -1,5 +1,4 @@
-﻿
-namespace SwipeCardView.Sample.Model
+﻿namespace SwipeCardView.Sample.Model
 {
     public enum Gender
     {

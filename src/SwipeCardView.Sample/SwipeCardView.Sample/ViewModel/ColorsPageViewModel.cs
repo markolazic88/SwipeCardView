@@ -1,15 +1,29 @@
-﻿using System;
+﻿using MLToolkit.Forms.SwipeCardView.Core;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using MLToolkit.Forms.SwipeCardView.Core;
 using Xamarin.Forms;
 
 namespace SwipeCardView.Sample.ViewModel
 {
     public class ColorsPageViewModel : BasePageViewModel
     {
-
         private ObservableCollection<string> _cardItems;
+
+        public ColorsPageViewModel()
+        {
+            _cardItems = new ObservableCollection<string>();
+            for (var i = 1; i <= 5; i++)
+            {
+                _cardItems.Add($"Card {i}");
+            }
+
+            SwipedCommand = new Command<SwipedCardEventArgs>(OnSwipedCommand);
+            DraggingCommand = new Command<DraggingCardEventArgs>(OnDraggingCommand);
+
+            ClearItemsCommand = new Command(OnClearItemsCommand);
+            AddItemsCommand = new Command(OnAddItemsCommand);
+        }
 
         public ObservableCollection<string> CardItems
         {
@@ -17,7 +31,7 @@ namespace SwipeCardView.Sample.ViewModel
             set
             {
                 _cardItems = value;
-                this.RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -29,21 +43,6 @@ namespace SwipeCardView.Sample.ViewModel
 
         public ICommand AddItemsCommand { get; }
 
-        public ColorsPageViewModel()
-        {
-            _cardItems = new ObservableCollection<string>();
-            for (var i = 1; i <= 5; i++)
-            {
-                _cardItems.Add($"Card {i}");
-            }
-
-            this.SwipedCommand = new Command<SwipedCardEventArgs>(this.OnSwipedCommand);
-            this.DraggingCommand = new Command<DraggingCardEventArgs>(this.OnDraggingCommand);
-
-            this.ClearItemsCommand = new Command(this.OnClearItemsCommand);
-            this.AddItemsCommand = new Command(this.OnAddItemsCommand);
-        }
-
         private void OnSwipedCommand(SwipedCardEventArgs eventArgs)
         {
         }
@@ -54,14 +53,19 @@ namespace SwipeCardView.Sample.ViewModel
             {
                 case DraggingCardPosition.Start:
                     return;
+
                 case DraggingCardPosition.UnderThreshold:
                     break;
+
                 case DraggingCardPosition.OverThreshold:
                     break;
+
                 case DraggingCardPosition.FinishedUnderThreshold:
                     return;
+
                 case DraggingCardPosition.FinishedOverThreshold:
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -69,7 +73,7 @@ namespace SwipeCardView.Sample.ViewModel
 
         private void OnClearItemsCommand()
         {
-            this.CardItems.Clear();
+            CardItems.Clear();
         }
 
         private void OnAddItemsCommand()

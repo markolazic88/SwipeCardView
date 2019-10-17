@@ -1,14 +1,13 @@
-﻿
-namespace MLToolkit.Forms.SwipeCardView.Core
+﻿namespace MLToolkit.Forms.SwipeCardView.Core
 {
     /// <summary>Arguments for swipe events.</summary>
     public class SwipedCardEventArgs : System.EventArgs
     {
         public SwipedCardEventArgs(object item, object parameter, SwipeCardDirection direction)
         {
-            this.Item = item;
-            this.Parameter = parameter;
-            this.Direction = direction;
+            Item = item;
+            Parameter = parameter;
+            Direction = direction;
         }
 
         /// <summary>Gets the item parameter.</summary>

@@ -576,19 +576,22 @@ namespace MLToolkit.Forms.SwipeCardView
                 Setup();
                 return;
             }
-
-            if (_itemIndex == 0)
+            
+            if (_itemIndex > 0)
             {
-                _itemIndex = 1;
+                TopItem = ItemsSource[_itemIndex - 1];
+            }
+            else
+            {
+                // Fallback for an irregular case
+                TopItem = ItemsSource.Count > 0 ? ItemsSource[_itemIndex] : null;
             }
 
-            TopItem = ItemsSource[_itemIndex];
-            _itemIndex++;
 
             var topCard = _cards[_topCardIndex];
             _topCardIndex = NextCardIndex(_topCardIndex);
 
-            // If there are more cards to show, show the next card in to place of 
+            // If there are more cards to show, show the next card in the place of 
             // the card that was swiped off the screen
             if (_itemIndex < ItemsSource.Count)
             {
@@ -608,8 +611,8 @@ namespace MLToolkit.Forms.SwipeCardView
                 }
 
                 topCard.BindingContext = ItemsSource[_itemIndex];
-
                 topCard.IsVisible = true;
+                _itemIndex++;
             }
         }
 
@@ -626,7 +629,7 @@ namespace MLToolkit.Forms.SwipeCardView
             var topCard = _cards[_topCardIndex];
             _topCardIndex = PrevCardIndex(_topCardIndex);
 
-            // If there are more cards to show, show the next card in to place of
+            // If there are more cards to show, show the next card in the place of
             // the card that was swiped off the screen
             if (_itemIndex < ItemsSource.Count)
             {

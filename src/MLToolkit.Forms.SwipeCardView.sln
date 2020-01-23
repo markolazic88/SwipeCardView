@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLToolkit.Forms.SwipeCardView", "MLToolkit.Forms.SwipeCardView\MLToolkit.Forms.SwipeCardView.csproj", "{A662F834-80D9-4C46-950D-96FDA716C5F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLToolkit.Forms.SwipeCardView", "MLToolkit.Forms.SwipeCardView\MLToolkit.Forms.SwipeCardView.csproj", "{A662F834-80D9-4C46-950D-96FDA716C5F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwipeCardView.Sample.Android", "SwipeCardView.Sample\SwipeCardView.Sample.Android\SwipeCardView.Sample.Android.csproj", "{26BEA8F1-1811-4783-9F83-B21FB541473A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwipeCardView.Sample.iOS", "SwipeCardView.Sample\SwipeCardView.Sample.iOS\SwipeCardView.Sample.iOS.csproj", "{02C8C8A9-7FCE-42E9-8F89-50D622D1FC21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwipeCardView.Sample", "SwipeCardView.Sample\SwipeCardView.Sample\SwipeCardView.Sample.csproj", "{73FA29FF-DCBB-47A9-81F8-5EB4949B8905}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwipeCardView.Sample", "SwipeCardView.Sample\SwipeCardView.Sample\SwipeCardView.Sample.csproj", "{73FA29FF-DCBB-47A9-81F8-5EB4949B8905}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLToolkit.Forms.SwipeCardView.Tests", "MLToolkit.Forms.SwipeCardView.Tests\MLToolkit.Forms.SwipeCardView.Tests.csproj", "{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +133,30 @@ Global
 		{73FA29FF-DCBB-47A9-81F8-5EB4949B8905}.Release|iPhone.Build.0 = Release|Any CPU
 		{73FA29FF-DCBB-47A9-81F8-5EB4949B8905}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{73FA29FF-DCBB-47A9-81F8-5EB4949B8905}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Release|iPhone.Build.0 = Release|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{CD96F477-ACDB-4B35-B81E-DEBF4F749EEB}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -463,7 +463,7 @@ namespace MLToolkit.Forms.SwipeCardView
             var backCard = _cards[PrevCardIndex(_topCardIndex)];
 
             // Move the top card
-            if (topCard.IsVisible)
+            if (topCard != null && topCard.IsVisible)
             {
                 // Move the card
                 if (differenceX > 0 && SupportedDraggingDirections.IsRight() || differenceX < 0 && SupportedDraggingDirections.IsLeft())
@@ -504,7 +504,7 @@ namespace MLToolkit.Forms.SwipeCardView
             }
 
             // Scale the back card
-            if (backCard.IsVisible)
+            if (backCard != null && backCard.IsVisible)
             {
                 var cardDistance = Math.Abs(differenceX) > Math.Abs(differenceY) ? differenceX : differenceY;
                 backCard.Scale = Math.Min(BackCardScale + Math.Abs((cardDistance / Threshold) * (1.0f - BackCardScale)), 1.0f);
@@ -517,6 +517,10 @@ namespace MLToolkit.Forms.SwipeCardView
             _ignoreTouch = true;
 
             var topCard = _cards[_topCardIndex];
+            if (topCard == null)
+            {
+                return;
+            }
 
             SwipeCardDirection direction;
             DraggingCardPosition position;

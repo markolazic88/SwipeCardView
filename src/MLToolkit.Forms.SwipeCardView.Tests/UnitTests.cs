@@ -11,12 +11,12 @@ namespace MLToolkit.Forms.SwipeCardView.Tests
     public class UnitTests : TestBase
     {
         [TestMethod]
-        public async Task ShouldNotInvokeSwipeIfItemsSourceIsEmptyTest()
+        public async Task Swipe_EmptyObservableCollection_ShouldNotInvoke()
         {
             var cardItems = new ObservableCollection<string>();
             var swipeCardView = new SwipeCardView();
             var swipeCardDirection = SwipeCardDirection.None;
-            
+
             swipeCardView.ItemsSource = cardItems;
             swipeCardView.Swiped += (sender, args) => { swipeCardDirection = args.Direction; };
 
@@ -27,22 +27,24 @@ namespace MLToolkit.Forms.SwipeCardView.Tests
         }
 
         [TestMethod]
-        public async Task ShouldInvokeSwipeIfItemsSourceHasItemsTest()
+        public async Task Swipe_ObservableCollection_UpdatesTopItem()
         {
-            var cardItems = new ObservableCollection<string>() { "Item1", "Item2" };
-            var swipeCardView = new SwipeCardView();
-            swipeCardView.ItemTemplate = new DataTemplate(() =>
+            var swipeCardView = new SwipeCardView
             {
-                var stackLayout = new StackLayout();
-                var label = new Label();
-                label.SetBinding(Label.TextProperty, ".");
-                stackLayout.Children.Add(label);
+                ItemTemplate = new DataTemplate(() =>
+                {
+                    var stackLayout = new StackLayout();
+                    var label = new Label();
+                    label.SetBinding(Label.TextProperty, ".");
+                    stackLayout.Children.Add(label);
 
-                return stackLayout;
-            });
+                    return stackLayout;
+                })
+            };
+
+            swipeCardView.ItemsSource = new ObservableCollection<string>() { "Item1", "Item2" };
+
             var swipeCardDirection = SwipeCardDirection.None;
-            
-            swipeCardView.ItemsSource = cardItems;
             swipeCardView.Swiped += (sender, args) => { swipeCardDirection = args.Direction; };
             var initialTopItem = swipeCardView.TopItem;
 
@@ -53,8 +55,42 @@ namespace MLToolkit.Forms.SwipeCardView.Tests
             Assert.AreEqual(swipeCardDirection, SwipeCardDirection.Right);
             Assert.AreEqual(swipeCardView.ItemsSource.Count, 2);
             Assert.AreNotEqual(initialTopItem, afterSwipeTopItem);
-            Assert.AreEqual(initialTopItem, cardItems[0]);
-            Assert.AreEqual(afterSwipeTopItem, cardItems[1]);
+            Assert.AreEqual(initialTopItem, "Item1");
+            Assert.AreEqual(afterSwipeTopItem, "Item2");
+        }
+
+        [TestMethod]
+        public async Task Swipe_SetObservableCollectionTwice()
+        {
+            var swipeCardView = new SwipeCardView
+            {
+                ItemTemplate = new DataTemplate(() =>
+                {
+                    var stackLayout = new StackLayout();
+                    var label = new Label();
+                    label.SetBinding(Label.TextProperty, ".");
+                    stackLayout.Children.Add(label);
+
+                    return stackLayout;
+                })
+            };
+
+            swipeCardView.ItemsSource = new ObservableCollection<string>() { "Item1", "Item2" };
+            swipeCardView.ItemsSource = new ObservableCollection<string>() { "Item3", "Item4" };
+
+            var swipeCardDirection = SwipeCardDirection.None;
+            swipeCardView.Swiped += (sender, args) => { swipeCardDirection = args.Direction; };
+            var initialTopItem = swipeCardView.TopItem;
+
+            await swipeCardView.InvokeSwipe(SwipeCardDirection.Right);
+
+            var afterSwipeTopItem = swipeCardView.TopItem;
+
+            Assert.AreEqual(swipeCardDirection, SwipeCardDirection.Right);
+            Assert.AreEqual(swipeCardView.ItemsSource.Count, 2);
+            Assert.AreNotEqual(initialTopItem, afterSwipeTopItem);
+            Assert.AreEqual(initialTopItem, "Item3");
+            Assert.AreEqual(afterSwipeTopItem, "Item4");
         }
     }
 }

@@ -159,11 +159,7 @@ namespace MLToolkit.Forms.SwipeCardView
         public IList ItemsSource
         {
             get => (IList)GetValue(ItemsSourceProperty);
-            set
-            {
-                SetValue(ItemsSourceProperty, value);
-                _itemIndex = 0;
-            }
+            set => SetValue(ItemsSourceProperty, value);
         }
 
         public DataTemplate ItemTemplate
@@ -358,6 +354,7 @@ namespace MLToolkit.Forms.SwipeCardView
             }
 
             observable = newValue as INotifyCollectionChanged;
+            swipeCardView._itemIndex = 0;
             swipeCardView.Setup();
             if (observable != null)
             {

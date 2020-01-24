@@ -10,5 +10,6 @@
         <Button Text="Simple Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:SimplePage}"></Button>
         <Button Text="Colors Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:ColorsPage}"></Button>
         <Button Text="Customizable Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:CustomizablePage}"></Button>
+        <Button Text="List Page" Command="{Binding NavigateCommand}" CommandParameter="{x:Type view:ListPage}"></Button>
     </StackLayout>
 </ContentPage>

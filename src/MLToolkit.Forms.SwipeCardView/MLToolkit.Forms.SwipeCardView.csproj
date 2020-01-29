@@ -11,13 +11,13 @@
     <PackageLicenseUrl>https://github.com/markolazic88/SwipeCardView/blob/master/LICENCE.md</PackageLicenseUrl>
     <PackageTags>xamarin xamarin.forms android ios swipe card view mltoolkit tinder</PackageTags>
     <Description>SwipeCardView is a lightweight MVVM friendly user control that brings Tinder-style swipe card view into Xamarin.Forms applications.</Description>
-    <Copyright>Copyright 2018</Copyright>
+    <Copyright>Copyright 2020</Copyright>
     <RepositoryUrl>https://github.com/markolazic88/SwipeCardView</RepositoryUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.848062" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
+             mc:Ignorable="d"
+             x:Class="SwipeCardView.Sample.View.Misc.EmptyPage"
+             Title="Empty Page">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Label Text="ItemsSource is not set"></Label>
+            <swipeCardView:SwipeCardView x:Name="SwipeCardView" BackgroundColor="Aqua" VerticalOptions="FillAndExpand">
+                <swipeCardView:SwipeCardView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding .}" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" BackgroundColor="Beige" />
+                    </DataTemplate>
+                </swipeCardView:SwipeCardView.ItemTemplate>
+            </swipeCardView:SwipeCardView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

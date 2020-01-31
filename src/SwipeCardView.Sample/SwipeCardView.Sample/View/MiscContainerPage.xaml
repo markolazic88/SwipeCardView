@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:androidSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:misc="clr-namespace:SwipeCardView.Sample.View.Misc;assembly=SwipeCardView.Sample"
+             xmlns:view="clr-namespace:SwipeCardView.Sample.View;assembly=SwipeCardView.Sample"
+             mc:Ignorable="d"
+             x:Class="SwipeCardView.Sample.View.MiscContainerPage"
+             androidSpecific:TabbedPage.IsSwipePagingEnabled="False">
+  <!--Pages can be added as references or inline-->
+  <misc:ListPage />
+  <misc:EmptyPage />
+</TabbedPage>

@@ -418,7 +418,7 @@ namespace MLToolkit.Forms.SwipeCardView
 
         private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
-            if (ItemsSource.Count == 0)
+            if (ItemsSource == null || ItemsSource.Count == 0)
             {
                 return;
             }

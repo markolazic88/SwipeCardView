@@ -34,13 +34,14 @@ namespace MLToolkit.Forms.SwipeCardView
                 null,
                 BindingMode.OneWayToSource);
 
-        public static readonly BindableProperty PreviousItemProperty =
-            BindableProperty.Create(
-                nameof(PreviousItem),
-                typeof(object),
-                typeof(SwipeCardView),
-                null,
-                BindingMode.OneWayToSource);
+        // TODO Uncomment to enable the feature
+        ////public static readonly BindableProperty PreviousItemProperty =
+        ////    BindableProperty.Create(
+        ////        nameof(PreviousItem),
+        ////        typeof(object),
+        ////        typeof(SwipeCardView),
+        ////        null,
+        ////        BindingMode.OneWayToSource);
 
         public static readonly BindableProperty SwipedCommandProperty =
             BindableProperty.Create(
@@ -174,11 +175,12 @@ namespace MLToolkit.Forms.SwipeCardView
             set => SetValue(TopItemProperty, value);
         }
 
-        public object PreviousItem
-        {
-            get => (object)GetValue(PreviousItemProperty);
-            set => SetValue(PreviousItemProperty, value);
-        }
+        // TODO Uncomment to enable the feature
+        ////public object PreviousItem
+        ////{
+        ////    get => (object)GetValue(PreviousItemProperty);
+        ////    set => SetValue(PreviousItemProperty, value);
+        ////}
 
         public ICommand SwipedCommand
         {
@@ -619,41 +621,7 @@ namespace MLToolkit.Forms.SwipeCardView
 
         private void ShowPreviousCard()
         {
-            if (_cards[0].IsVisible == false && _cards[1].IsVisible == false)
-            {
-                Setup();
-                return;
-            }
-
-            TopItem = PreviousItem;
-
-            var topCard = _cards[_topCardIndex];
-            _topCardIndex = PrevCardIndex(_topCardIndex);
-
-            // If there are more cards to show, show the next card in the place of
-            // the card that was swiped off the screen
-            if (_itemIndex < ItemsSource.Count)
-            {
-                // Push it to the back z order
-                ((RelativeLayout)Content).LowerChild(topCard);
-
-                try
-                {
-                    // Reset its scale, opacity and rotation
-                    topCard.Scale = BackCardScale;
-                    topCard.RotateTo(0, 0);
-                    topCard.TranslateTo(0, -topCard.Y, 0);
-                }
-                catch (Exception exception)
-                {
-                    Debug.WriteLine(exception);
-                }
-
-                topCard.BindingContext = ItemsSource[_itemIndex];
-
-                topCard.IsVisible = true;
-                _itemIndex++;
-            }
+            // TODO Implement
         }
 
         // Return the next card index from the top

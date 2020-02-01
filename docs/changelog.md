@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 2.1.0
 
 - [#14](https://github.com/markolazic88/SwipeCardView/issues/14) - Fixed index out of range exception
-- [#7](https://github.com/markolazic88/SwipeCardView/issues/7) Added graceful handling when ItemsSource is empty
+- [#7](https://github.com/markolazic88/SwipeCardView/issues/7) - Added graceful handling when ItemsSource is empty
 - Updated Xamarin Forms dependency to 4.2.0.848062 or higher
 - Added unit tests and more page samples
 - Code cleanup

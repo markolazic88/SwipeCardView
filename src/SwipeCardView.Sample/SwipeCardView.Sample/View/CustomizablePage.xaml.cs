@@ -4,13 +4,13 @@ using Xamarin.Forms.Xaml;
 
 namespace SwipeCardView.Sample.View
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CustomizablePage : ContentPage
-	{
-		public CustomizablePage ()
-		{
-			InitializeComponent ();
-		    this.BindingContext = new CustomizablePageViewModel();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CustomizablePage : ContentPage
+    {
+        public CustomizablePage()
+        {
+            InitializeComponent();
+            BindingContext = new CustomizablePageViewModel();
+        }
+    }
 }

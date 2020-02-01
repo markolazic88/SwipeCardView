@@ -1,17 +1,16 @@
-﻿
-namespace MLToolkit.Forms.SwipeCardView.Core
+﻿namespace MLToolkit.Forms.SwipeCardView.Core
 {
     /// <summary>Arguments for swipe events.</summary>
     public class DraggingCardEventArgs : System.EventArgs
     {
         public DraggingCardEventArgs(object item, object parameter, SwipeCardDirection direction, DraggingCardPosition position, double distanceDraggedX, double distanceDraggedY)
         {
-            this.Item = item;
-            this.Parameter = parameter;
-            this.Direction = direction;
-            this.Position = position;
-            this.DistanceDraggedX = distanceDraggedX;
-            this.DistanceDraggedY = distanceDraggedY;
+            Item = item;
+            Parameter = parameter;
+            Direction = direction;
+            Position = position;
+            DistanceDraggedX = distanceDraggedX;
+            DistanceDraggedY = distanceDraggedY;
         }
 
         /// <summary>Gets the item parameter.</summary>

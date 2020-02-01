@@ -8,7 +8,7 @@ namespace SwipeCardView.Sample.View
         public MainPage()
         {
             InitializeComponent();
-            this.BindingContext = new MainPageViewModel(this.Navigation);
+            BindingContext = new MainPageViewModel(Navigation);
         }
     }
 }

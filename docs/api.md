@@ -20,7 +20,7 @@ SupportedSwipeDirections | `SwipeCardDirection` | Left, Right, Up, Down | Gets o
 SwipeCommand | `System.Windows.Input.ICommand`  | null | Gets or sets the command to run when a swipe gesture is recognized
 SwipeCommandParameter | `System.Object` | null | Gets or sets the parameter to pass to commands that take one
 Threshold | `uint` | 100 | Gets or sets the minimum card dragging distance that will cause the swipe gesture to be recognized
-TopItem | `System.Object` | null | Gets the top items
+TopItem | `System.Object` | null | Gets the top item
 
 ## Events
 

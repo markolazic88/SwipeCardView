@@ -9,12 +9,11 @@
             <swipeCardView:SwipeCardView
                 x:Name="SwipeCardView"
                 ItemsSource="{Binding CardItems}"
-                HorizontalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
                 SwipedCommand="{Binding SwipedCommand}"
                 DraggingCommand="{Binding DraggingCommand}"
-                Threshold="100"
-                >
+                Threshold="100">
                 <swipeCardView:SwipeCardView.ItemTemplate>
                     <DataTemplate>
                         <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">

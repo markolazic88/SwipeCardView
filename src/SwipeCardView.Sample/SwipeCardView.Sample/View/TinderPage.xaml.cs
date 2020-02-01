@@ -1,6 +1,6 @@
-﻿using System;
-using MLToolkit.Forms.SwipeCardView.Core;
+﻿using MLToolkit.Forms.SwipeCardView.Core;
 using SwipeCardView.Sample.ViewModel;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,25 +11,25 @@ namespace SwipeCardView.Sample.View
     {
         public TinderPage()
         {
-            this.InitializeComponent();
-            this.BindingContext = new TinderPageViewModel();
+            InitializeComponent();
+            BindingContext = new TinderPageViewModel();
 
             SwipeCardView.Dragging += OnDragging;
         }
 
         private void OnDislikeClicked(object sender, EventArgs e)
         {
-            this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Left);
+            SwipeCardView.InvokeSwipe(SwipeCardDirection.Left);
         }
 
         private void OnSuperLikeClicked(object sender, EventArgs e)
         {
-            this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Up);
+            SwipeCardView.InvokeSwipe(SwipeCardDirection.Up);
         }
 
         private void OnLikeClicked(object sender, EventArgs e)
         {
-            this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Right);
+            SwipeCardView.InvokeSwipe(SwipeCardDirection.Right);
         }
 
         private void OnDragging(object sender, DraggingCardEventArgs e)
@@ -38,7 +38,7 @@ namespace SwipeCardView.Sample.View
             var nopeFrame = view.FindByName<Frame>("NopeFrame");
             var likeFrame = view.FindByName<Frame>("LikeFrame");
             var superLikeFrame = view.FindByName<Frame>("SuperLikeFrame");
-            var threshold = (this.BindingContext as TinderPageViewModel).Threshold;
+            var threshold = (BindingContext as TinderPageViewModel).Threshold;
 
             var draggedXPercent = e.DistanceDraggedX / threshold;
 
@@ -54,6 +54,7 @@ namespace SwipeCardView.Sample.View
                     likeButton.Scale = 1;
                     superLikeButton.Scale = 1;
                     break;
+
                 case DraggingCardPosition.UnderThreshold:
                     if (e.Direction == SwipeCardDirection.Left)
                     {
@@ -61,7 +62,6 @@ namespace SwipeCardView.Sample.View
                         nopeButton.Scale = 1 + draggedXPercent / 2;
                         superLikeFrame.Opacity = 0;
                         superLikeButton.Scale = 1;
-
                     }
                     else if (e.Direction == SwipeCardDirection.Right)
                     {
@@ -69,7 +69,6 @@ namespace SwipeCardView.Sample.View
                         likeButton.Scale = 1 - draggedXPercent / 2;
                         superLikeFrame.Opacity = 0;
                         superLikeButton.Scale = 1;
-
                     }
                     else if (e.Direction == SwipeCardDirection.Up)
                     {
@@ -81,6 +80,7 @@ namespace SwipeCardView.Sample.View
                         superLikeButton.Scale = 1 + draggedYPercent / 2;
                     }
                     break;
+
                 case DraggingCardPosition.OverThreshold:
                     if (e.Direction == SwipeCardDirection.Left)
                     {
@@ -99,6 +99,7 @@ namespace SwipeCardView.Sample.View
                         superLikeFrame.Opacity = 1;
                     }
                     break;
+
                 case DraggingCardPosition.FinishedUnderThreshold:
                     nopeFrame.Opacity = 0;
                     likeFrame.Opacity = 0;
@@ -107,6 +108,7 @@ namespace SwipeCardView.Sample.View
                     likeButton.Scale = 1;
                     superLikeButton.Scale = 1;
                     break;
+
                 case DraggingCardPosition.FinishedOverThreshold:
                     nopeFrame.Opacity = 0;
                     likeFrame.Opacity = 0;
@@ -115,6 +117,7 @@ namespace SwipeCardView.Sample.View
                     likeButton.Scale = 1;
                     superLikeButton.Scale = 1;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

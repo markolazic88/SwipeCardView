@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.0
+
+- [#14](https://github.com/markolazic88/SwipeCardView/issues/14) - Fixed index out of range exception
+- [#7](https://github.com/markolazic88/SwipeCardView/issues/7) 0 Added graceful handling when ItemsSource is empty
+- Updated Xamarin Forms dependency to 4.2.0.848062 or higher
+- Added unit tests and more page samples
+- Code cleanup
+
 ## 2.0.0
 
 - Introduced SwipeCommand and Swiped event, SwipedEventArgs and SwipedCardDirection

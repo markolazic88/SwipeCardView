@@ -13,7 +13,7 @@
     <Description>SwipeCardView is a lightweight MVVM friendly user control that brings Tinder-style swipe card view into Xamarin.Forms applications.</Description>
     <Copyright>Copyright 2020</Copyright>
     <RepositoryUrl>https://github.com/markolazic88/SwipeCardView</RepositoryUrl>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/markolazic88/SwipeCardView/blob/master/docs/changelog.md</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

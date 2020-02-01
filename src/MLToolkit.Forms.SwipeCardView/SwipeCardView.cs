@@ -579,7 +579,7 @@ namespace MLToolkit.Forms.SwipeCardView
                 Setup();
                 return;
             }
-            
+
             if (_itemIndex > 0)
             {
                 TopItem = ItemsSource[_itemIndex - 1];

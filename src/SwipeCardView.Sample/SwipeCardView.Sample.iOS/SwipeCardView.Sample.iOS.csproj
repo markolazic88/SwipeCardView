@@ -127,7 +127,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\SwipeCardView.Sample\SwipeCardView.Sample.csproj">
-      <Project>{7D5D649F-2A72-4524-B220-98F7AC0828C2}</Project>
+      <Project>{73FA29FF-DCBB-47A9-81F8-5EB4949B8905}</Project>
       <Name>SwipeCardView.Sample</Name>
     </ProjectReference>
   </ItemGroup>

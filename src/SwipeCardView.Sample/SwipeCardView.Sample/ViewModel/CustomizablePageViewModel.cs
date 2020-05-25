@@ -30,6 +30,8 @@ namespace SwipeCardView.Sample.ViewModel
 
         private float _cardRotation;
 
+        private bool _isLoopCards;
+
         public CustomizablePageViewModel()
         {
             _cardItems = new ObservableCollection<string>();
@@ -47,6 +49,8 @@ namespace SwipeCardView.Sample.ViewModel
             _isSwipeRightSupported = true;
             _isSwipeUpSupported = false;
             _isSwipeDownSupported = false;
+
+            _isLoopCards = true;
 
             _threshold = 100;
             _animationLength = 250;
@@ -214,6 +218,16 @@ namespace SwipeCardView.Sample.ViewModel
             set
             {
                 _cardRotation = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsLoopCards
+        {
+            get => _isLoopCards;
+            set
+            {
+                _isLoopCards = value;
                 RaisePropertyChanged();
             }
         }

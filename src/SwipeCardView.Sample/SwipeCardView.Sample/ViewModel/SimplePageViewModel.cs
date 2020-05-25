@@ -8,7 +8,7 @@ namespace SwipeCardView.Sample.ViewModel
     public class SimplePageViewModel : BasePageViewModel
     {
         private ObservableCollection<string> _cardItems;
-
+        private bool _isLoopCards;
         private string _message;
 
         public SimplePageViewModel()
@@ -18,7 +18,7 @@ namespace SwipeCardView.Sample.ViewModel
             {
                 _cardItems.Add($"Card {i}");
             }
-
+            _isLoopCards = true;
             SwipedCommand = new Command<SwipedCardEventArgs>(OnSwipedCommand);
 
             ClearItemsCommand = new Command(OnClearItemsCommand);
@@ -41,6 +41,16 @@ namespace SwipeCardView.Sample.ViewModel
             set
             {
                 _message = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsLoopCards
+        {
+            get => _isLoopCards;
+            set
+            {
+                _isLoopCards = value;
                 RaisePropertyChanged();
             }
         }

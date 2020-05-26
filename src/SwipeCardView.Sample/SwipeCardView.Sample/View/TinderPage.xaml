@@ -17,7 +17,8 @@
                 DraggingCommand="{Binding DraggingCommand}"
                 Threshold="{Binding Threshold}"
                 SupportedSwipeDirections="Left, Right, Up"
-                SupportedDraggingDirections="Left, Right, Up, Down">
+                SupportedDraggingDirections="Left, Right, Up, Down"
+                LoopCards="True">
                 <swipeCardView:SwipeCardView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">

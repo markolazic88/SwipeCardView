@@ -109,6 +109,13 @@ namespace MLToolkit.Forms.SwipeCardView
                 typeof(SwipeCardView),
                 DefaultAnimationLength);
 
+        public static readonly BindableProperty LoopCardsProperty =
+            BindableProperty.Create(
+                nameof(LoopCards),
+                typeof(bool),
+                typeof(SwipeCardView),
+                DefaultLoopCards);
+
         private const uint DefaultThreshold = 100;
 
         private const SwipeCardDirection DefaultSupportedSwipeDirections = SwipeCardDirection.Left | SwipeCardDirection.Right | SwipeCardDirection.Up | SwipeCardDirection.Down;
@@ -120,6 +127,8 @@ namespace MLToolkit.Forms.SwipeCardView
         private const float DefaultCardRotation = 20;
 
         private const uint DefaultAnimationLength = 250; // Speed of the animations
+
+        private const bool DefaultLoopCards = false;
 
         private const int NumCards = 2; // Number of cards in stack
 
@@ -240,6 +249,12 @@ namespace MLToolkit.Forms.SwipeCardView
         {
             get => (uint)GetValue(AnimationLengthProperty);
             set => SetValue(AnimationLengthProperty, value);
+        }
+
+        public bool LoopCards
+        {
+            get => (bool)GetValue(LoopCardsProperty);
+            set => SetValue(LoopCardsProperty, value);
         }
 
         private DraggingCardPosition DraggingCardPosition { get; set; }
@@ -398,7 +413,10 @@ namespace MLToolkit.Forms.SwipeCardView
             {
                 if (_itemIndex >= ItemsSource.Count)
                 {
-                    break;
+                    if (LoopCards)
+                        _itemIndex = 0;
+                    else 
+                        break;
                 }
 
                 var card = _cards[i];

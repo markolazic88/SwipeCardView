@@ -9,6 +9,7 @@
             <swipeCardView:SwipeCardView
                 ItemsSource="{Binding CardItems}"
                 SwipedCommand="{Binding SwipedCommand}"
+                LoopCards="{Binding IsLoopCards}"
                 VerticalOptions="FillAndExpand">
                 <swipeCardView:SwipeCardView.ItemTemplate>
                     <DataTemplate>
@@ -17,6 +18,10 @@
                 </swipeCardView:SwipeCardView.ItemTemplate>
             </swipeCardView:SwipeCardView>
             <Label Text="{Binding Message}" HorizontalOptions="CenterAndExpand" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="Loop Cards" />
+                <Switch IsToggled="{Binding IsLoopCards}"  />
+            </StackLayout>
             <Button Text="Clear Items" Command="{Binding ClearItemsCommand}"></Button>
             <Button Text="Add 5 Items" Command="{Binding AddItemsCommand}"></Button>
         </StackLayout>

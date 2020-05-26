@@ -19,7 +19,8 @@
                 Threshold="{Binding Threshold}"
                 AnimationLength="{Binding AnimationLength}"
                 BackCardScale="{Binding BackCardScale}"
-                CardRotation="{Binding CardRotation}">
+                CardRotation="{Binding CardRotation}"
+                LoopCards="{Binding IsLoopCards}">
                 <swipeCardView:SwipeCardView.ItemTemplate>
                     <DataTemplate>
                         <Frame CornerRadius="10" Padding="0" BorderColor="Orange" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Beige">
@@ -70,6 +71,8 @@
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Threshold:" VerticalOptions="Center"></Label>
                     <Entry Text="{Binding Threshold}" Keyboard="Numeric" VerticalOptions="Center" WidthRequest="50"></Entry>
+                    <Label Text="Loop Cards:" VerticalTextAlignment="Center"></Label>
+                    <Switch IsToggled="{Binding IsLoopCards}"></Switch>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">

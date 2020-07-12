@@ -389,6 +389,9 @@ namespace MLToolkit.Forms.SwipeCardView
                     card.IsVisible = false;
                 }
 
+                if (ItemsSource.Count > 0)
+                    Setup();
+
                 return;
             }
 

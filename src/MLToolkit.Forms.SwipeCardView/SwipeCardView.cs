@@ -418,7 +418,7 @@ namespace MLToolkit.Forms.SwipeCardView
                 {
                     if (LoopCards)
                         _itemIndex = 0;
-                    else 
+                    else
                         break;
                 }
 
@@ -430,11 +430,12 @@ namespace MLToolkit.Forms.SwipeCardView
                     TopItem = ItemsSource[_itemIndex];
                 }
 
-                card.IsVisible = true;
                 card.Scale = GetScale(i);
-                card.RotateTo(0, 0);
-                card.TranslateTo(0, -card.Y, 0);
+                card.Rotation = 0;
+                card.TranslationX = 0;
+                card.TranslationY = -card.Y;
                 ((RelativeLayout)Content).LowerChild(card);
+                card.IsVisible = true;
                 _itemIndex++;
             }
         }
@@ -597,6 +598,7 @@ namespace MLToolkit.Forms.SwipeCardView
         {
             if (_cards[0].IsVisible == false && _cards[1].IsVisible == false)
             {
+                TopItem = null;
                 Setup();
                 return;
             }
@@ -626,8 +628,9 @@ namespace MLToolkit.Forms.SwipeCardView
                 {
                     // Reset its scale, opacity and rotation
                     topCard.Scale = BackCardScale;
-                    topCard.RotateTo(0, 0);
-                    topCard.TranslateTo(0, -topCard.Y, 0);
+                    topCard.Rotation = 0;
+                    topCard.TranslationX = 0;
+                    topCard.TranslationY = -topCard.Y;
                 }
                 catch (Exception exception)
                 {

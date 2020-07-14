@@ -434,6 +434,8 @@ namespace MLToolkit.Forms.SwipeCardView
             _topCardIndex = 0;
 
             // Create a stack of cards
+            var wasVisible = Content.IsVisible;
+            Content.IsVisible = false;
             for (var i = 0; i < Math.Min(NumCards, ItemsSource.Count); i++)
             {
                 if (_itemIndex >= ItemsSource.Count)
@@ -461,6 +463,7 @@ namespace MLToolkit.Forms.SwipeCardView
                 card.IsVisible = true;
                 _itemIndex++;
             }
+            Content.IsVisible = wasVisible;
         }
 
         private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
@@ -597,6 +600,11 @@ namespace MLToolkit.Forms.SwipeCardView
                 }
 
                 topCard.IsVisible = false;
+
+                topCard.Scale = 0.0;
+                topCard.Rotation = 0;
+                topCard.TranslationX = 0;
+                topCard.TranslationY = -topCard.Y;
 
                 SendSwiped(topCard, direction);
 

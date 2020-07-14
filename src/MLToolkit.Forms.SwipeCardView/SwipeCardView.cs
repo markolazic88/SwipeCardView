@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace MLToolkit.Forms.SwipeCardView
 {
-    public class SwipeCardView : ContentView
+    public class SwipeCardView : ContentView, IDisposable
     {
         public static readonly BindableProperty ItemsSourceProperty =
             BindableProperty.Create(
@@ -160,6 +160,26 @@ namespace MLToolkit.Forms.SwipeCardView
             GestureRecognizers.Add(panGesture);
 
             DraggingCardPosition = DraggingCardPosition.Start;
+        }
+
+        public void Dispose()
+        {
+            foreach (var card in _cards)
+            {
+                if (card != null)
+                    ViewExtensions.CancelAnimations(card);
+            }
+
+            GestureRecognizers.Clear();
+
+            if (this.ItemsSource != null)
+            {
+                var observable = this.ItemsSource as INotifyCollectionChanged;
+                if (observable != null)
+                {
+                    observable.CollectionChanged -= this.OnItemSourceCollectionChanged;
+                }
+            }
         }
 
         public event EventHandler<SwipedCardEventArgs> Swiped;
@@ -349,6 +369,7 @@ namespace MLToolkit.Forms.SwipeCardView
 
                 swipeCardView._cards[i] = card;
                 card.IsVisible = false;
+                ViewExtensions.CancelAnimations(card);
 
                 view.Children.Add(
                     card,
@@ -386,7 +407,8 @@ namespace MLToolkit.Forms.SwipeCardView
                 _itemIndex = 0;
                 foreach (var card in _cards)
                 {
-                    card.IsVisible = false;
+                    if (card != null)
+                        card.IsVisible = false;
                 }
 
                 if (ItemsSource.Count > 0)
@@ -430,6 +452,7 @@ namespace MLToolkit.Forms.SwipeCardView
                     TopItem = ItemsSource[_itemIndex];
                 }
 
+                ViewExtensions.CancelAnimations(card);
                 card.Scale = GetScale(i);
                 card.Rotation = 0;
                 card.TranslationX = 0;

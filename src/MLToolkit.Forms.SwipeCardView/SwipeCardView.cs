@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace MLToolkit.Forms.SwipeCardView
 {
-    public class SwipeCardView : ContentView
+    public class SwipeCardView : ContentView, IDisposable
     {
         public static readonly BindableProperty ItemsSourceProperty =
             BindableProperty.Create(
@@ -160,6 +160,26 @@ namespace MLToolkit.Forms.SwipeCardView
             GestureRecognizers.Add(panGesture);
 
             DraggingCardPosition = DraggingCardPosition.Start;
+        }
+
+        public void Dispose()
+        {
+            foreach (var card in _cards)
+            {
+                if (card != null)
+                    ViewExtensions.CancelAnimations(card);
+            }
+
+            GestureRecognizers.Clear();
+
+            if (this.ItemsSource != null)
+            {
+                var observable = this.ItemsSource as INotifyCollectionChanged;
+                if (observable != null)
+                {
+                    observable.CollectionChanged -= this.OnItemSourceCollectionChanged;
+                }
+            }
         }
 
         public event EventHandler<SwipedCardEventArgs> Swiped;
@@ -349,6 +369,7 @@ namespace MLToolkit.Forms.SwipeCardView
 
                 swipeCardView._cards[i] = card;
                 card.IsVisible = false;
+                ViewExtensions.CancelAnimations(card);
 
                 view.Children.Add(
                     card,
@@ -386,7 +407,8 @@ namespace MLToolkit.Forms.SwipeCardView
                 _itemIndex = 0;
                 foreach (var card in _cards)
                 {
-                    card.IsVisible = false;
+                    if (card != null)
+                        card.IsVisible = false;
                 }
 
                 if (ItemsSource.Count > 0)
@@ -412,13 +434,15 @@ namespace MLToolkit.Forms.SwipeCardView
             _topCardIndex = 0;
 
             // Create a stack of cards
+            var wasVisible = Content.IsVisible;
+            Content.IsVisible = false;
             for (var i = 0; i < Math.Min(NumCards, ItemsSource.Count); i++)
             {
                 if (_itemIndex >= ItemsSource.Count)
                 {
                     if (LoopCards)
                         _itemIndex = 0;
-                    else 
+                    else
                         break;
                 }
 
@@ -430,13 +454,16 @@ namespace MLToolkit.Forms.SwipeCardView
                     TopItem = ItemsSource[_itemIndex];
                 }
 
-                card.IsVisible = true;
+                ViewExtensions.CancelAnimations(card);
                 card.Scale = GetScale(i);
-                card.RotateTo(0, 0);
-                card.TranslateTo(0, -card.Y, 0);
+                card.Rotation = 0;
+                card.TranslationX = 0;
+                card.TranslationY = -card.Y;
                 ((RelativeLayout)Content).LowerChild(card);
+                card.IsVisible = true;
                 _itemIndex++;
             }
+            Content.IsVisible = wasVisible;
         }
 
         private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
@@ -574,6 +601,11 @@ namespace MLToolkit.Forms.SwipeCardView
 
                 topCard.IsVisible = false;
 
+                topCard.Scale = 0.0;
+                topCard.Rotation = 0;
+                topCard.TranslationX = 0;
+                topCard.TranslationY = -topCard.Y;
+
                 SendSwiped(topCard, direction);
 
                 ShowNextCard();
@@ -597,6 +629,7 @@ namespace MLToolkit.Forms.SwipeCardView
         {
             if (_cards[0].IsVisible == false && _cards[1].IsVisible == false)
             {
+                TopItem = null;
                 Setup();
                 return;
             }
@@ -626,8 +659,9 @@ namespace MLToolkit.Forms.SwipeCardView
                 {
                     // Reset its scale, opacity and rotation
                     topCard.Scale = BackCardScale;
-                    topCard.RotateTo(0, 0);
-                    topCard.TranslateTo(0, -topCard.Y, 0);
+                    topCard.Rotation = 0;
+                    topCard.TranslationX = 0;
+                    topCard.TranslationY = -topCard.Y;
                 }
                 catch (Exception exception)
                 {

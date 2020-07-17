@@ -411,6 +411,7 @@ namespace MLToolkit.Forms.SwipeCardView
                         card.IsVisible = false;
                 }
 
+                TopItem = null;
                 if (ItemsSource.Count > 0)
                     Setup();
 

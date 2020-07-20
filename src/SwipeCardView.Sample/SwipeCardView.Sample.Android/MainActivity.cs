@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Xamarin.Forms;
 
 namespace SwipeCardView.Sample.Droid
 {
@@ -14,7 +15,9 @@ namespace SwipeCardView.Sample.Droid
 
             base.OnCreate(bundle);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            Forms.SetFlags("CollectionView_Experimental");
+            Forms.SetFlags("CarouselView_Experimental");
+            Forms.Init(this, bundle);
 
             var width = Resources.DisplayMetrics.WidthPixels;
             var height = Resources.DisplayMetrics.HeightPixels;

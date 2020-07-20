@@ -9,7 +9,8 @@
              mc:Ignorable="d"
              x:Class="SwipeCardView.Sample.View.MiscContainerPage"
              androidSpecific:TabbedPage.IsSwipePagingEnabled="False">
-  <!--Pages can be added as references or inline-->
-  <misc:ListPage />
-  <misc:EmptyPage />
+    <!--Pages can be added as references or inline-->
+    <misc:ListPage />
+    <misc:EmptyPage />
+    <misc:TemplateSelectorPage />
 </TabbedPage>

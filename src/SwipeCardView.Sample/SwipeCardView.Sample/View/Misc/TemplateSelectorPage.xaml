@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="clr-namespace:SwipeCardView.Sample.DataTemplateSelectors" xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
+             mc:Ignorable="d"
+             x:Class="SwipeCardView.Sample.View.Misc.TemplateSelectorPage"
+             Title="Template Selector Page">
+
+    <ContentPage.Resources>
+        <DataTemplate x:Key="MaleDataTemplate">
+            <StackLayout BackgroundColor="Blue" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="FemaleDataTemplate">
+            <StackLayout BackgroundColor="Red" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="DefaultDataTemplate">
+            <StackLayout BackgroundColor="Yellow" />
+        </DataTemplate>
+
+        <controls:GenderDataTemplateSelector x:Key="GenderDataTemplateSelector"
+                                             MaleDataTemplate="{StaticResource MaleDataTemplate}"
+                                             FemaleDataTemplate="{StaticResource FemaleDataTemplate}"
+                                             DefautlDataTemplate="{StaticResource DefaultDataTemplate}"/>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Label Text="ItemTemplate is set to a DataTemplateSelector"></Label>
+            <!--<CarouselView x:Name="MyCarouselView"
+                  ItemTemplate="{StaticResource GenderDataTemplateSelector}" />-->
+            <swipeCardView:SwipeCardView x:Name="SwipeCardView" BackgroundColor="Aqua" VerticalOptions="FillAndExpand" ItemTemplate="{StaticResource GenderDataTemplateSelector}">
+            </swipeCardView:SwipeCardView>
+        </StackLayout>  
+    </ContentPage.Content>
+</ContentPage>

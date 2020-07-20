@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace SwipeCardView.Sample.iOS
 {
@@ -18,7 +19,9 @@ namespace SwipeCardView.Sample.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
+            Forms.SetFlags("CollectionView_Experimental");
+            Forms.SetFlags("CarouselView_Experimental");
+            Forms.Init();
 
             App.ScreenWidth = UIScreen.MainScreen.Bounds.Width;
             App.ScreenHeight = UIScreen.MainScreen.Bounds.Height;

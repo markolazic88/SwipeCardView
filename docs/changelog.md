@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.2.0
+
+- Added a new property 'LoopCards' that enables infinite swiping of cards - thanks to @noormahammad
+- Added SwipeCardView dispose logic - thanks to @Tommigun1980
+- Variuos bug fixed related to ItemSource Reset - thanks to @Tommigun1980
+
 ## 2.1.0
 
 - [#14](https://github.com/markolazic88/SwipeCardView/issues/14) - Fixed index out of range exception
